@@ -2,9 +2,9 @@
 // buka koneksi
 require_once '../config/connection.php';
 
-$nomor_induk_karyawan      = strtoupper(mysqli_escape_string($conn, trim($_POST['nomor'])));
+$nomor_induk_karyawan      = strtoupper(mysqli_escape_string($conn, trim($_POST['nomor_induk_karyawan'])));
 if(mysqli_escape_string($conn, trim($_POST['hapus']))=='0'){
-    $nomor_induk_karyawan = ucwords(mysqli_escape_string($conn, trim($_POST['nomor'])));
+    $nomor_induk_karyawan = ucwords(mysqli_escape_string($conn, trim($_POST['nomor_induk_karyawan'])));
     $email                = strtolower(mysqli_escape_string($conn, trim($_POST['email'])));
     $bagian               = strtolower(mysqli_escape_string($conn, trim($_POST['bagian'])));
     $kata_sandi           = md5(strtolower(mysqli_escape_string($conn, trim($_POST['kata_sandi']))));
