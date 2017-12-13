@@ -23,7 +23,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     $sub_array['nomor_induk_karyawan']  = $row['nomor_induk_karyawan'];
     $sub_array['email']                 = $row['email'];
     $sub_array['bagian']                = $row['bagian'];
-	  $sub_array['action']	              = ' <button type="button" class="btn btn-warning btn-xs" data-toggle="collapse" data-target=".tampil" onclick="return ubah(\''.$row['nomor_induk_karyawan'].'\',\''.$row['email'].'\',\''.$row['bagian'].'\')"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i> Ubah</button>
+	  $sub_array['action']	              = ' <button type="button" class="btn btn-warning btn-xs" data-toggle="collapse" data-target=".tampil" onclick="return ubah(\''.$row['nomor_induk_karyawan'].'\',\''.$row['email'].'\',\''.$row['bagian'].'\',\''.$row['nomor_induk_karyawan'].'\')"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i> Ubah</button>
                                             <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#hapus" onclick="return hapus(\''.$row['nomor_induk_karyawan'].'\')"><i class="ace-icon fa fa-trash-o bigger-120"></i> Hapus</button>';
 
     $data[] = $sub_array;

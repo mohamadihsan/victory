@@ -2,15 +2,26 @@
 // buka koneksi
 require_once '../config/connection.php';
 
-$nomor_induk_karyawan      = strtoupper(mysqli_escape_string($conn, trim($_POST['nomor_induk_karyawan'])));
-if(mysqli_escape_string($conn, trim($_POST['hapus']))=='0'){
-    $nomor_induk_karyawan = ucwords(mysqli_escape_string($conn, trim($_POST['nomor_induk_karyawan'])));
-    $email                = strtolower(mysqli_escape_string($conn, trim($_POST['email'])));
+$nomor_induk_karyawan      = mysqli_escape_string($conn, trim($_POST['nomor_induk_karyawan']));
+$hapus                    = mysqli_escape_string($conn, trim($_POST['hapus']));
+if($hapus=='0'){
+    $nip_lama             = mysqli_escape_string($conn, trim($_POST['nip_lama']));
+    $nomor_induk_karyawan = mysqli_escape_string($conn, trim($_POST['nomor_induk_karyawan']));
+    $email                = mysqli_escape_string($conn, trim($_POST['email']));
     $bagian               = strtolower(mysqli_escape_string($conn, trim($_POST['bagian'])));
     $kata_sandi           = md5(strtolower(mysqli_escape_string($conn, trim($_POST['kata_sandi']))));
 }
 
-if ($nomor_induk_karyawan=='') {
+if($hapus=='1'){
+    // hapus data
+    $sql = "DELETE FROM pengguna
+            WHERE nomor_induk_karyawan='$nomor_induk_karyawan'";
+    if(mysqli_query($conn, $sql)){
+        $pesan_berhasil = "Data berhasil dihapus";
+    }else{
+        $pesan_gagal = "Data gagal dihapus";
+    }
+}else if ($nip_lama == '') {
 
     // simpan data
     $sql = "INSERT INTO pengguna (nomor_induk_karyawan, email, bagian, kata_sandi)
@@ -20,24 +31,15 @@ if ($nomor_induk_karyawan=='') {
     }else{
         $pesan_gagal = "Data gagal disimpan";
     }
-}else if($nomor_induk_karyawan!='' AND empty(mysqli_escape_string($conn, trim($_POST['hapus'])))){
+}else if($nip_lama != ''){
     // perbaharui data
     $sql = "UPDATE pengguna
             SET nomor_induk_karyawan='$nomor_induk_karyawan', email='$email', bagian='$bagian', kata_sandi='$kata_sandi'
-            WHERE nomor='$nomor_induk_karyawan'";
+            WHERE nomor_induk_karyawan='$nip_lama'";
     if(mysqli_query($conn, $sql)){
         $pesan_berhasil = "Data berhasil diperbaharui";
     }else{
         $pesan_gagal = "Data gagal diperbaharui";
-    }
-}else if(mysqli_escape_string($conn, trim($_POST['hapus']))=='1'){
-    // hapus data
-    $sql = "DELETE FROM pengguna
-            WHERE nomor_induk_karyawan='$nomor_induk_karyawan'";
-    if(mysqli_query($conn, $sql)){
-        $pesan_berhasil = "Data berhasil dihapus";
-    }else{
-        $pesan_gagal = "Data gagal dihapus";
     }
 }
 

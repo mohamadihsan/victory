@@ -34,6 +34,7 @@
 
                                 <!-- hidden status hapus false -->
                                 <input type="hidden" name="hapus" value="0" class="form-control" placeholder="" readonly>
+                                <input type="hidden" name="nip_lama" value="" class="form-control" placeholder="" readonly>
 
                                 <table class="table table-renponsive">
                                     <caption>Masukkan Data Pengguna:</caption>
@@ -134,10 +135,11 @@
 </div>
 
 <script>
-    function ubah(nomor_induk_karyawan, email, bagian){
+    function ubah(nomor_induk_karyawan, email, bagian, nip_lama){
         $('.well input[name=nomor_induk_karyawan]').val(nomor_induk_karyawan);
         $('.well input[name=email]').val(email);
         $('.well select[name=bagian]').val(bagian);
+        $('.well input[name=nip_lama]').val(nip_lama);
     }
 
     function hapus(nomor_induk_karyawan){
