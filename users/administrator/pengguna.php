@@ -53,7 +53,7 @@
                                                 <option value="warehouse spearpart">Warehouse Spearpart</option>
                                                 <option value="factory manager">Factory Manager</option>
                                                 <option value="marketing manager">Marketing Manager</option>
-                                                <option value="warehouse pabric">Warehouse Pabric</option>
+                                                <option value="warehouse fabric">Warehouse Fabric</option>
                                                 <option value="exim dan container">Exim dan Container</option>
                                             </select>
                                         </td>
