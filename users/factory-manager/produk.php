@@ -45,10 +45,12 @@
                                         <td width="15%">Nama Produk</td>
                                         <td><input type="text" name="nama_produk" value="" class="form-control" placeholder="" required></td>
                                     </tr>
-                                    <tr>
+                                    <!-- <tr>
                                         <td width="15%">Style</td>
-                                        <td><input type="text" name="style" value="" class="form-control" placeholder="" required></td>
-                                    </tr>
+                                        <td> -->
+                                            <input type="hidden" name="style" value="" class="form-control" placeholder="">
+                                        <!-- </td>
+                                    </tr> -->
                                     <tr>
                                         <td width="15%">Deskripsi</td>
                                         <td><input type="text" name="deskripsi" value="" class="form-control" placeholder="" required></td>
@@ -95,7 +97,6 @@
                                     <th width="10%" class="text-center">Gambar</th>
                                     <th width="10%" class="text-left">ID</th>
                                     <th width="15%" class="text-left">Nama</th>
-                                    <th width="12%" class="text-left">Style</th>
                                     <th width="10%" class="text-left">Deskripsi</th>
                                     <th width="10%" class="text-left">Warna</th>
                                     <th width="10%" class="text-left">Harga</th>
@@ -163,7 +164,6 @@
                             { mData: 'gambar_produk' } ,
                             { mData: 'id_produk' } ,
                             { mData: 'nama_produk' } ,
-                            { mData: 'style' },
                             { mData: 'deskripsi' },
                             { mData: 'warna' },
                             { mData: 'harga' },

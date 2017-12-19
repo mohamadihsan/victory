@@ -43,7 +43,6 @@
                                     <th width="10%" class="text-center">Gambar</th>
                                     <th width="10%" class="text-left">ID</th>
                                     <th width="15%" class="text-left">Nama</th>
-                                    <th width="12%" class="text-left">Style</th>
                                     <th width="10%" class="text-left">Deskripsi</th>
                                     <th width="10%" class="text-left">Warna</th>
                                     <th width="10%" class="text-left">Harga</th>
@@ -76,7 +75,6 @@
                             { mData: 'gambar_produk' } ,
                             { mData: 'id_produk' } ,
                             { mData: 'nama_produk' } ,
-                            { mData: 'style' },
                             { mData: 'deskripsi' },
                             { mData: 'warna' },
                             { mData: 'harga' }
