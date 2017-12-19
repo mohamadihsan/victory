@@ -24,7 +24,103 @@
 
         <div class="row">
             <div class="col-xs-12">
-              
+                <button data-toggle="collapse" data-target=".tampil" class="btn btn-sm"><i class="ace-icon fa fa-plus bigger-110"></i> Form</button>
+
+                <div id="" class="collapse tampil_komposisi">
+                    <div class="well">
+                    Komposisi Produk
+                    <button data-toggle="collapse" data-target=".tampil_komposisi" class="btn btn-sm"><i class="ace-icon fa fa-close bigger-110"></i> Tutup</button>
+
+                    </div>
+                </div>
+
+                <div id="" class="collapse tampil">
+                    <div class="well">
+                        <form action="../action/komposisi.php" method="post" class="myform">
+
+                            <!-- hidden status -->
+                            <input type="hidden" name="status" value="0" class="form-control" placeholder="" readonly>
+
+                            <table class="table table-renponsive">
+                                <caption>Masukkan Data Produk:</caption>
+                                <tr>
+                                    <td width="15%">Produk</td>
+                                    <td>
+                                        <input type="text" name="id_produk" value="<?php if(isset($_GET['id'])) echo $_GET['id'] ?>" readonly>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="15%">Bahan yang digunakan</td>
+                                    <td>
+                                        <select name="id_bahan_baku[]" class="form-control multiselect" multiple="" required>
+                                            <?php
+                                            // retrieve data dari API
+                                            $file = file_get_contents($url_api."tampilkan_data_bahan_baku.php");
+                                            $json = json_decode($file, true);
+                                            $i=0;
+                                            while ($i < count($json['data'])) {
+                                                $id_bahan_baku[$i] = $json['data'][$i]['id_bahan_baku'];
+                                                $nama_item[$i] = $json['data'][$i]['id_bahan_baku'].' - '.$json['data'][$i]['nama_item'];
+                                                ?>
+                                                <option value="<?= $id_bahan_baku[$i] ?>"> <?= $nama_item[$i] ?></option>
+                                                <?php
+                                                $i++;
+                                            }
+                                            ?>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <div class="btn-group">
+                                            <button type="submit" class="btn btn-sm btn-inverse"><i class="ace-icon fa fa-arrow-right bigger-120"></i> Selanjutnya</button>
+                                            <button type="reset" class="btn btn-sm btn-default"><i class="ace-icon fa fa-refresh bigger-120"></i> Reset</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+
+                        <div class="collapse" id="selanjutnya">
+                            <form action="../action/komposisi.php" method="post" class="myform2">
+
+                                <!-- hidden status -->
+                                <input type="hidden" name="status" value="1" class="form-control" placeholder="" readonly>
+
+                                <!-- tabel komposisi -->
+                                <div class="table-header">
+                                    Bahan Baku yang digunakan:
+                                </div>
+                                <div class="table table-responsive">
+                                    <table id="komposisitable" class="display" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr class="">
+                                                <th width="20%" class="text-left">ID Bahan</th>
+                                                <th width="20%" class="text-left">Takaran</th>
+                                                <th width="30%" class="text-left"></th>
+                                                <th width="30%" class="text-left"></th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="3">
+                                                    <button type="submit" class="btn btn-sm btn-primary"><i class="ace-icon fa fa-save bigger-120"></i> Simpan</button>
+                                                    <a href="../action/unset_session_komposisi.php" class="btn btn-sm btn-danger"><i class="ace-icon fa fa-close bigger-120"></i> Batalkan</a>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- loading -->
+                <center><div id="loading"></div></center>
+                <div id="result"></div>
+
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.page-content -->
@@ -54,10 +150,10 @@
 </div>
 
 <script>
-function ubah(id_produk, id_bahan_baku, takaran){
+function ubah(id_produk, id_bahan_baku, quantity){
     $('.well input[name=id_produk]').val(id_produk);
     $('.well input[name=id_bahan_baku]').val(id_bahan_baku);
-    $('.well input[name=takaran]').val(takaran);
+    $('.well input[name=quantity]').val(quantity);
 }
 
 function tampil_komposisi(id_produk){
@@ -99,7 +195,7 @@ $(document).ready(function(){
                 //"order": [[ 4, "desc" ]],
                  "aoColumns": [
                         { mData: 'id_bahan_baku' } ,
-                        { mData: 'takaran' },
+                        { mData: 'quantity' },
                         { mData: 'input_id_produk' },
                         { mData: 'input_id_bahan_baku' }
                 ]

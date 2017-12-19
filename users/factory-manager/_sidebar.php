@@ -43,13 +43,13 @@
 								<b class="arrow"></b>
 						</li>
 
-						<li class="<?php if($menu=='komposisi') echo "active"; ?>">
+						<!-- <li class="<?php if($menu=='komposisi') echo "active"; ?>">
 							<a href="./index.php?menu=komposisi">
 								<span class="menu-text"> Komposisi </span>
 							</a>
 
 							<b class="arrow"></b>
-						</li>
+						</li> -->
 				</ul>
 		</li>
 
