@@ -58,7 +58,7 @@
 	</head>
 
 	<body class="no-skin">
-		<div id="navbar" class="navbar navbar-default ace-save-state" style="background-color:#D15B47">
+		<div id="navbar" class="navbar navbar-default ace-save-state" style="background-color:#cd5c00">
 			<div class="navbar-container ace-save-state" id="navbar-container">
 				<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
 					<span class="sr-only">Toggle sidebar</span>
