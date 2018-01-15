@@ -40,13 +40,14 @@
                             <thead>
                                 <tr class="">
                                     <th width="5%" class="text-center">No</th>
-                                    <th width="15%" class="text-left">ID</th>
-                                    <th width="15%" class="text-left">Supplier</th>
-                                    <th width="15%" class="text-left">Pegawai</th>
-                                    <th width="15%" class="text-center">Tanggal Pengajuan</th>
-                                    <th width="5%" class="text-center">Status Pengajuan</th>
-                                    <th width="5%" class="text-center">Status Pemesanan</th>
-                                    <th width="5%" class="text-center">Status Persediaan</th>
+                                    <th width="15%" class="text-left">Nomor PO</th>
+                                    <th width="15%" class="text-left">Barang</th>
+                                    <th width="5%" class="text-left">Stok Awal</th>
+                                    <th width="5%" class="text-center">Qty Order</th>
+                                    <th width="5%" class="text-center">Outgoing Produksi</th>
+                                    <th width="5%" class="text-center">Stok Akhir</th>
+                                    <th width="5%" class="text-center">Tanggal</th>
+                                    <th width="10%" class="text-center">Supplier</th>
                                     <th width="15%" class="text-center"></th>
                                 </tr>
                             </thead>
@@ -72,10 +73,11 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title"><i class="fa fa-trash"></i> Hapus Data</h4>
             </div>
-            <form method="post" action="../action/pemesanan_bahan_baku.php" class="myform">
+            <form method="post" action="../action/persediaan_bahan_baku.php" class="myform">
                 <div class="modal-body">
                     <input type="hidden" name="hapus" value="1" readonly>
-                    <input type="hidden" name="nomor_faktur" readonly>
+                    <input type="hidden" name="nomor_po" readonly>
+                    <input type="hidden" name="id_bahan_baku" readonly>
                     <p>Apakah anda akan menghapus data pemesanan ini?</p>
                 </div>
                 <div class="modal-footer">
@@ -87,12 +89,10 @@
 </div>
 
 <script>
-    function detail(id_pengadaan_bahan_baku){
 
-    }
-
-    function hapus(id_pengadaan_bahan_baku){
-        $('.modal-body input[name=id_pengadaan_bahan_baku]').val(id_pengadaan_bahan_baku);
+    function hapus(id_bahan_baku, nomor_po){
+        $('.modal-body input[name=id_bahan_baku]').val(id_bahan_baku);
+        $('.modal-body input[name=nomor_po]').val(nomor_po);
     }
 
     // LOADING SCREEN WHILE PROCESS SAVING/UPDATE/DELETE DATA
@@ -100,7 +100,7 @@
 
         $('#mytable').DataTable({
                     "bProcessing": true,
-                    "sAjaxSource": "<?php echo $base_url.'action/tampilkan_data_pengadaan_bahan_baku.php' ?>",
+                    "sAjaxSource": "<?php echo $base_url.'action/tampilkan_data_persediaan_bahan_baku.php' ?>",
                     "deferRender": true,
                     "select": true,
                     //"dom": 'Bfrtip',
@@ -108,13 +108,14 @@
                     //"order": [[ 4, "desc" ]],
                      "aoColumns": [
                             { mData: 'no' } ,
-                            { mData: 'id_pengadaan_bahan_baku' } ,
-                            { mData: 'id_supplier' } ,
-                            { mData: 'nomor_induk_karyawan' },
-                            { mData: 'tanggal_pengajuan' },
-                            { mData: 'status_pengajuan' },
-                            { mData: 'status_pemesanan' },
-                            { mData: 'status_pengadaan' },
+                            { mData: 'nomor_po' } ,
+                            { mData: 'nama_item' } ,
+                            { mData: 'stok_awal' },
+                            { mData: 'quantity_order' },
+                            { mData: 'outgoing_produksi' },
+                            { mData: 'balance_stok_akhir' },
+                            { mData: 'tanggal' },
+                            { mData: 'nama_supplier' },
                             { mData: 'action' }
                     ],
                     "aoColumnDefs": [
