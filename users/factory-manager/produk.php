@@ -83,7 +83,7 @@
                     <div class="clearfix">
                         <div class="pull-right tableTools-container"></div>
                     </div>
-                    <div class="table-header" style="background-color:#D15B47">
+                    <div class="table-header">
                         Daftar data "Produk"
                     </div>
                     <!-- div.table-responsive -->
