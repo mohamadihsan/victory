@@ -89,7 +89,7 @@
                     <div class="clearfix">
                         <div class="pull-right tableTools-container"></div>
                     </div>
-                    <div class="table-header" style="">
+                    <div class="table-header">
                         Daftar data "Bahan Baku"
                     </div>
                     <!-- div.table-responsive -->
