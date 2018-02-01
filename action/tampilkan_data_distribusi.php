@@ -43,7 +43,8 @@ while ($row = mysqli_fetch_assoc($result)) {
     $sub_array['status_pengiriman']     = $row['status_pengiriman'];
     $sub_array['nama_konsumen']        = $row['nama_konsumen'];
     $sub_array['alamat']                = $row['alamat'];
-    $sub_array['action']	              = ' <a href="./index.php?menu=pemesanan&nomor_invoice='.$row['nomor_invoice'].'" class="btn btn-warning btn-xs"><i class="ace-icon fa fa-file-text-o bigger-120"></i> Detail</button>';
+    $sub_array['action']	              = ' <a href="./index.php?menu=pemesanan&nomor_invoice='.$row['nomor_invoice'].'" class="btn btn-warning btn-xs"><i class="ace-icon fa fa-file-text-o bigger-120"></i> Detail</a>
+                                                <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#kirim" onclick="return kirim(\''.$row['nomor_invoice'].'\')"><i class="ace-icon fa fa-truck bigger-120"></i> Kirim</button>';
 
     // ubah tampilan data
     if ($sub_array['status_persetujuan'] == 'p') {
@@ -66,7 +67,12 @@ while ($row = mysqli_fetch_assoc($result)) {
     if ($sub_array['status_pengiriman'] == 0) {
         $sub_array['status_pengiriman'] = '<span class="label label-warning label-white middle">
                                                 <i class="ace-icon fa fa-exclamation-triangle bigger-120"></i>
-                                                belum diterima
+                                                belum dikirim
+                                            </span>';
+    }else if ($sub_array['status_pengiriman'] == 1) {
+        $sub_array['status_pengiriman'] = '<span class="label label-success label-white middle">
+                                                <i class="ace-icon fa fa-check-square bigger-120"></i>
+                                                sudah dikirim
                                             </span>';
     }else{
         $sub_array['status_pengiriman'] = '<span class="label label-success label-white middle">

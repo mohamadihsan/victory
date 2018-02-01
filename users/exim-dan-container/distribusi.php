@@ -56,7 +56,32 @@
     </div>
 </div><!-- /.main-content -->
 
+<!-- Modal Hapus -->
+<div class="modal fade" id="kirim" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><i class="fa fa-truck"></i> Konfirmasi Pengiriman</h4>
+            </div>
+            <form method="post" action="../action/pengiriman_produk.php" class="myform">
+                <div class="modal-body">
+                    <input type="hidden" name="status_pengiriman" value="1" readonly>
+                    <input type="hidden" name="nomor_invoice" readonly>
+                    <p>Apakah anda akan mengirimkan pesanan ini?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-save"></i> Update Status</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script>
+    function kirim(nomor_invoice){
+        $('.modal-body input[name=nomor_invoice]').val(nomor_invoice);
+    }
     // LOADING SCREEN WHILE PROCESS SAVING/UPDATE/DELETE DATA
     $(document).ready(function(){
 
@@ -80,6 +105,36 @@
                         { sClass: "dt-center", "aTargets": [0,3,4] },
                         { sClass: "dt-nowrap", "aTargets": [0,1,2] }
                     ]
+        });
+
+        //Callback handler for form submit event
+        $(".myform").submit(function(e)
+        {
+
+        var formObj = $(this);
+        var formURL = formObj.attr("action");
+        var formData = new FormData(this);
+        $.ajax({
+            url: formURL,
+            type: 'POST',
+            data:  formData,
+            contentType: false,
+            cache: false,
+            processData:false,
+            beforeSend: function (){
+                       $("#loading").show(1000).html("<img src='../assets/images/loading.gif' height='100'>");
+                       },
+            success: function(data, textStatus, jqXHR){
+                    $("#result").html(data);
+                    $("#loading").hide();
+                    $("#kirim").modal('hide');
+                    $('#mytable').DataTable().ajax.reload();
+            },
+                error: function(jqXHR, textStatus, errorThrown){
+         }
+        });
+            e.preventDefault(); //Prevent Default action.
+            e.unbind();
         });
 
     });
