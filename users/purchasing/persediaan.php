@@ -29,44 +29,74 @@
 
                     <div id="" class="collapse tampil">
                         <div class="well">
-                            <form action="../action/bahan_baku.php" method="post" class="myform">
+                            <form action="../action/persediaan_bahan_baku.php" method="post" class="myform">
 
                                 <!-- hidden status hapus false -->
                                 <input type="hidden" name="hapus" value="0" class="form-control" placeholder="" readonly>
 
                                 <table class="table table-renponsive">
-                                    <caption>Masukkan Data Bahan Baku:</caption>
+                                    <caption>Masukkan Data Persediaan Bahan Baku:</caption>
                                     <tr>
-                                        <td width="15%">Kode Item</td>
-                                        <input type="text" name="id_bahan_baku" value="" class="" placeholder="ID akan dibuat secara otomatis" hidden>
-                                        <td><input type="text" name="kode_item" value="" class="form-control" placeholder=""></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="15%">Nama Item</td>
-                                        <td><input type="text" name="nama_item" value="" class="form-control" placeholder="" required></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="15%">Ukuran</td>
-                                        <td><input type="text" name="ukuran" value="" class="form-control" placeholder="" required></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="15%">Tipe/Warna</td>
-                                        <td><input type="text" name="tipe_warna" value="" class="form-control" placeholder="" required></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="15%">Style</td>
+                                        <td width="15%">Bahan Baku</td>
                                         <td>
-                                            <select class="form-control" name="style" required>
-                                                <option value="Carter">Carter's</option>
-                                                <option value="Gymbore">Gymbore</option>
-                                                <option value="TCP">TCP</option>
-                                                <option value="K-mart">K-mart</option>
+                                            <select name="id_bahan_baku" class="form-control select2" required>
+                                                <?php
+                                                // retrieve data dari API
+                                                $file = file_get_contents($url_api."tampilkan_data_bahan_baku.php");
+                                                $json = json_decode($file, true);
+                                                $i=0;
+                                                while ($i < count($json['data'])) {
+                                                    $id_bahan_baku[$i] = $json['data'][$i]['id_bahan_baku'];
+                                                    $nama_item[$i] = $json['data'][$i]['id_bahan_baku'].' - '.$json['data'][$i]['nama_item'];
+                                                    ?>
+                                                    <option value="<?= $id_bahan_baku[$i] ?>"> <?= $nama_item[$i] ?></option>
+                                                    <?php
+                                                    $i++;
+                                                }
+                                                ?>
                                             </select>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td width="15%">Value</td>
-                                        <td><input type="text" name="value" value="" class="form-control" placeholder="" required></td>
+                                        <td width="15%">Nomor PO</td>
+                                        <td><input type="text" name="nomor_po" value="" class="form-control" placeholder="" required></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="15%">Supplier</td>
+                                        <td>
+                                            <select name="id_supplier" class="form-control select2" required>
+                                                <?php
+                                                // retrieve data dari API
+                                                $file = file_get_contents($url_api."tampilkan_data_supplier.php");
+                                                $json = json_decode($file, true);
+                                                $i=0;
+                                                while ($i < count($json['data'])) {
+                                                    $id_supplier[$i] = $json['data'][$i]['id_supplier'];
+                                                    $nama_supplier[$i] = $json['data'][$i]['id_supplier'].' - '.$json['data'][$i]['nama_supplier'];
+                                                    ?>
+                                                    <option value="<?= $id_supplier[$i] ?>"> <?= $nama_supplier[$i] ?></option>
+                                                    <?php
+                                                    $i++;
+                                                }
+                                                ?>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="15%">Stok Awal</td>
+                                        <td><input type="number" name="stok_awal" value="" class="form-control" placeholder="" min="0" required></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="15%">Quantity Order</td>
+                                        <td><input type="number" name="quantity_order" value="" class="form-control" placeholder="" min="0" required></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="15%">Outgoing Produksi</td>
+                                        <td><input type="number" name="outgoing_produksi" value="" class="form-control" placeholder="" min="0" required></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="15%">Tanggal</td>
+                                        <td><input type="date" name="tanggal" value="" class="form-control" placeholder="" required></td>
                                     </tr>
                                     <tr>
                                         <td colspan="2">
@@ -148,14 +178,14 @@
 </div>
 
 <script>
-    function ubah(id_bahan_baku, kode_item, nama_item, ukuran, tipe_warna, style, value){
-        $('.well input[name=id_bahan_baku]').val(id_bahan_baku);
-        $('.well input[name=kode_item]').val(kode_item);
-        $('.well input[name=nama_item]').val(nama_item);
-        $('.well input[name=ukuran]').val(ukuran);
-        $('.well input[name=tipe_warna]').val(tipe_warna);
-        $('.well select[name=style]').val(style);
-        $('.well input[name=value]').val(value);
+    function ubah(id_bahan_baku, nomor_po, id_supplier, stok_awal, quantity_order, outgoing_produksi, tanggal){
+        $('.well select[name=id_bahan_baku]').val(id_bahan_baku);
+        $('.well input[name=nomor_po]').val(nomor_po);
+        $('.well select[name=id_supplier]').val(id_supplier);
+        $('.well input[name=stok_awal]').val(stok_awal);
+        $('.well input[name=quantity_order]').val(quantity_order);
+        $('.well input[name=outgoing_produksi]').val(outgoing_produksi);
+        $('.well input[name=tanggal]').val(tanggal);
     }
 
     function hapus(id_bahan_baku, nomor_po){

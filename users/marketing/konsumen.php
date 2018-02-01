@@ -93,7 +93,7 @@
                                     <th width="10%" class="text-left">Nomor Telp</th>
                                     <th width="10%" class="text-left">Email</th>
                                     <th width="10%" class="text-left">Alamat</th>
-                                    <th width="10%" class="text-left"></th>
+                                    <th width="14%" class="text-left"></th>
                                 </tr>
                             </thead>
                         </table>

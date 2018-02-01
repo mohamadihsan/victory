@@ -46,7 +46,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     $sub_array['total_pembayaran']    = $row['total_pembayaran'];
     $sub_array['bukti_pembayaran']    = $row['bukti_pembayaran'];
     $sub_array['status_pembayaran']   = $row['status_pembayaran'];
-	  $sub_array['action']	            = ' <button type="button" class="btn btn-warning btn-xs" data-toggle="collapse" data-target=".tampil_detail" title="Detail" onclick="return detail(\''.$row['nomor_invoice'].'\')"><i class="ace-icon fa fa-file-text-o bigger-120"></i> </button>';
+	  $sub_array['action']	            = '  <a href="./index.php?menu=pemesanan&invoice='.$row['nomor_invoice'].'" class="btn btn-warning btn-xs"><i class="ace-icon fa fa-file-text-o bigger-120"></i> Detail</a>';
     $sub_array['invoice']	            = ' <a href="./index.php?id='.$row['nomor_invoice'].'&menu=invoice" type="button" class="btn btn-warning btn-xs" title="Detail"><i class="ace-icon fa fa-file-text-o bigger-120"></i> </a>';
 
     // ubah tampilan data
