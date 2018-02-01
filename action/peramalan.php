@@ -15,10 +15,10 @@ if(mysqli_escape_string($conn, trim($_POST['hapus']))=='0'){
     $alpha      = 0.1;
 
     // jumlah pemesanan sebulan sebelum periode yang dicari
-    $sql = "SELECT SUM(jumlah_pemesanan) as jumlah_pemesanan
+    $sql = "SELECT SUM(quantity) as jumlah_pemesanan
             FROM detail_pemesanan_produk dpp
-            LEFT JOIN pemesanan_produk pp ON pp.nomor_faktur = dpp.nomor_faktur
-            WHERE dpp.id_produk = '$id_produk' 
+            LEFT JOIN pemesanan_produk pp ON pp.nomor_invoice = dpp.nomor_invoice
+            WHERE dpp.id_produk = '$id_produk'
             AND DATE_FORMAT(tanggal_pemesanan,'%m-%Y') = '$periode_bulan_sebelumnya'";
     $result = mysqli_query($conn, $sql);
     $data = mysqli_fetch_assoc($result);
@@ -26,7 +26,7 @@ if(mysqli_escape_string($conn, trim($_POST['hapus']))=='0'){
     if ($jumlah_pemesanan == NULL) {
         $jumlah_pemesanan = 0;
     }
-    
+
     // jumlah peramalan 1 bulan yang lalu dari periode yang dicari
     $sql = "SELECT hasil_peramalan
             FROM peramalan
@@ -37,26 +37,26 @@ if(mysqli_escape_string($conn, trim($_POST['hapus']))=='0'){
         $hasil_peramalan_bulan_sebelumnya = $data['hasil_peramalan'];
     }else{
         $hasil_peramalan_bulan_sebelumnya = $jumlah_pemesanan;
-    }        
-    
+    }
+
     // rumus single exponential smoothing
-    $hasil_peramalan = ceil(($alpha * $jumlah_pemesanan) + (1 - $alpha) * $hasil_peramalan_bulan_sebelumnya); 
+    $hasil_peramalan = ceil(($alpha * $jumlah_pemesanan) + (1 - $alpha) * $hasil_peramalan_bulan_sebelumnya);
 
     $periode = $tahun.'-'.$bulan.'-01';
     // cek data apakah sudah tersedia atau belum
-    $sql = "SELECT id_peramalan 
+    $sql = "SELECT id_peramalan
             FROM peramalan
             WHERE periode='$periode'";
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) > 0) {
         $data = mysqli_fetch_assoc($result);
         $id_peramalan = $data['id_peramalan'];
-        
+
         // update data
         $sql = "UPDATE peramalan
                 SET hasil_peramalan = '$hasil_peramalan'
                 WHERE id_peramalan = '$id_peramalan'";
-        mysqli_query($conn, $sql);        
+        mysqli_query($conn, $sql);
     }else{
         // simpan data
         $sql = "INSERT INTO peramalan (periode, id_produk, hasil_peramalan)
@@ -79,7 +79,7 @@ if(mysqli_escape_string($conn, trim($_POST['hapus']))=='0'){
     }
 }
 
-                
+
 
 if (isset($pesan_berhasil)) {
     ?>

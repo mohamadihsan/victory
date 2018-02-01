@@ -26,13 +26,7 @@
                 <div class="col-xs-12">
                     <!-- PAGE CONTENT BEGINS -->
 
-                    <div id="" class="collapse tampil_detail">
-                        <div class="well">
-                        Detail Pengadaan
-                        <button data-toggle="collapse" data-target=".tampil_detail" class="btn btn-sm"><i class="ace-icon fa fa-close bigger-110"></i> Tutup</button>
-
-                        </div>
-                    </div>
+                    <a href="index.php?menu=pengadaan&form=true" class="btn btn-sm btn-primary"><i class="ace-icon fa fa-plus bigger-110"></i> Form</a>
 
                     <div class="clearfix">
                         <div class="pull-right tableTools-container"></div>

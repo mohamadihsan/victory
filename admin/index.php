@@ -77,62 +77,6 @@ switch ($bagian) {
 				}
 			break;
 
-	case 'pimpinan':
-			include_once '../users/pimpinan/_sidebar.php';
-			// load content
-			switch ($menu) {
-				case 'pengadaan':
-					include_once '../users/pimpinan/persetujuan_pengadaan_bahan_baku.php';
-					break;
-
-				case 'pengeluaran':
-					include_once '../users/pimpinan/persetujuan_pengeluaran_produk.php';
-					break;
-
-				case 'pengiriman':
-					include_once '../users/pimpinan/persetujuan_pengiriman_produk.php';
-					break;
-
-				case 'profil':
-					include_once '../users/general-pages/profil.php';
-					break;
-
-				default:
-					include_once '../users/pimpinan/beranda.php';
-					break;
-			}
-		break;
-
-	case 'warehouse spearpart':
-			include_once '../users/warehouse-spearpart/_sidebar.php';
-			// load content
-			switch ($menu) {
-				case 'bahan-baku':
-					include_once '../users/warehouse-spearpart/bahan_baku.php';
-					break;
-
-				case 'produksi':
-					include_once '../users/warehouse-spearpart/kebutuhan_produksi.php';
-					break;
-
-				case 'peramalan':
-					include_once '../users/warehouse-spearpart/peramalan.php';
-					break;
-
-				case 'pengadaan':
-					include_once '../users/warehouse-spearpart/pemesanan_bahan_baku.php';
-					break;
-
-				case 'profil':
-					include_once '../users/general-pages/profil.php';
-					break;
-
-				default:
-					include_once '../users/warehouse-spearpart/beranda.php';
-					break;
-			}
-		break;
-
 	case 'factory manager':
 			include_once '../users/factory-manager/_sidebar.php';
 			// load content
@@ -167,50 +111,6 @@ switch ($bagian) {
 
 				default:
 					include_once '../users/factory-manager/beranda.php';
-					break;
-			}
-		break;
-
-	case 'marketing manager':
-			include_once '../users/marketing-manager/_sidebar.php';
-			// load content
-			switch ($menu) {
-				case 'pemesanan':
-					include_once '../users/marketing-manager/penerimaan_pemesanan_produk.php';
-					break;
-
-				case 'produk':
-					include_once '../users/marketing-manager/produk.php';
-					break;
-
-				case 'profil':
-					include_once '../users/general-pages/profil.php';
-					break;
-
-				default:
-					include_once '../users/marketing-manager/beranda.php';
-					break;
-			}
-		break;
-
-	case 'warehouse fabric':
-			include_once '../users/warehouse-fabric/_sidebar.php';
-			// load content
-			switch ($menu) {
-				case 'pengeluaran':
-					include_once '../users/warehouse-fabric/validasi_pengeluaran_produk.php';
-					break;
-
-				case 'produk':
-					include_once '../users/warehouse-fabric/produk.php';
-					break;
-
-				case 'profil':
-					include_once '../users/general-pages/profil.php';
-					break;
-
-				default:
-					include_once '../users/warehouse-fabric/beranda.php';
 					break;
 			}
 		break;

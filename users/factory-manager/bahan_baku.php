@@ -26,7 +26,7 @@
                 <div class="col-xs-12">
                     <!-- PAGE CONTENT BEGINS -->
 
-                    <!-- <button data-toggle="collapse" data-target=".tampil" class="btn btn-sm btn-primary"><i class="ace-icon fa fa-plus bigger-110"></i> Form</button> -->
+                    <button data-toggle="collapse" data-target=".tampil" class="btn btn-sm btn-primary"><i class="ace-icon fa fa-plus bigger-110"></i> Form</button>
 
                     <div id="" class="collapse tampil">
                         <div class="well">
@@ -58,7 +58,7 @@
                                         <td width="15%">Style</td>
                                         <td>
                                             <select class="form-control" name="style" required>
-                                                <option value="Carter's">Carter's</option>
+                                                <option value="Carter">Carter's</option>
                                                 <option value="Gymbore">Gymbore</option>
                                                 <option value="TCP">TCP</option>
                                                 <option value="K-mart">K-mart</option>
@@ -106,6 +106,7 @@
                                     <th width="10%" class="text-center">Tipe/Warna</th>
                                     <th width="12%" class="text-center">Style</th>
                                     <th width="15%" class="text-center">Value</th>
+                                    <th width="10%" class="text-center"></th>
                                 </tr>
                             </thead>
                         </table>
@@ -172,7 +173,8 @@
                             { mData: 'ukuran' },
                             { mData: 'tipe_warna' },
                             { mData: 'style' },
-                            { mData: 'value' }
+                            { mData: 'value' },
+                            { mData: 'action'}
                     ],
                     "aoColumnDefs": [
                         { sClass: "dt-center", "aTargets": [0,3,4,5] },

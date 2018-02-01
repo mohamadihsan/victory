@@ -84,6 +84,31 @@
 				</ul>
 		</li>
 
+		<li class="<?php if($menu=='pengadaan') echo "active open"; ?>">
+				<a href="#" class="dropdown-toggle">
+						<i class="menu-icon fa fa-file-text-o"></i>
+						<span class="menu-text">
+								Persediaan
+						</span>
+
+						<b class="arrow fa fa-angle-down"></b>
+				</a>
+
+				<b class="arrow"></b>
+
+				<ul class="submenu">
+						<li class="<?php if($menu=='pengadaan') echo "active"; ?>">
+							<a href="./index.php?menu=pengadaan">
+								<i class="menu-icon fa fa-shopping-cart"></i>
+								<span class="menu-text"> Pengadaan Bahan </span>
+							</a>
+
+							<b class="arrow"></b>
+						</li>
+				</ul>
+		</li>
+
+
 	</ul><!-- /.nav-list -->
 
 	<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
