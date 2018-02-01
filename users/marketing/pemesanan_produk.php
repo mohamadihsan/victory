@@ -130,8 +130,6 @@
                                         <th width="10%" class="text-left">Konsumen</th>
                                         <th width="15%" class="text-left">Status Pemesanan</th>
                                         <th width="15%" class="text-left">Status Barang</th>
-                                        <th width="15%" class="text-left">Total Pembayaran</th>
-                                        <th width="10%" class="text-left">Butki Pembayaran</th>
                                         <th width="15%" class="text-left">Status Pembayaran</th>
                                         <th width="5%" class="text-left"></th>
                                     </tr>
@@ -249,8 +247,6 @@
                             { mData: 'id_konsumen' } ,
                             { mData: 'status_pemesanan' },
                             { mData: 'ketersediaan_produk' },
-                            { mData: 'total_pembayaran' },
-                            { mData: 'bukti_pembayaran' },
                             { mData: 'status_pembayaran' },
                             { mData: 'action' }
                     ],

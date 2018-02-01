@@ -81,12 +81,12 @@ while ($row = mysqli_fetch_assoc($result)) {
     if ($sub_array['status_pembayaran'] == 0) {
         $sub_array['status_pembayaran'] = '<span class="label label-warning label-white middle">
                                                 <i class="ace-icon fa fa-exclamation-triangle bigger-120"></i>
-                                                tidak valid
+                                                belum dibayar
                                             </span>';
     }else{
         $sub_array['status_pembayaran'] = '<span class="label label-success label-white middle">
                                                 <i class="ace-icon fa fa-check-square bigger-120"></i>
-                                                valid
+                                                sudah dibayar
                                             </span>';
     }
 
