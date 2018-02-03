@@ -1,115 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html lang="in">
 	<head>
-		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="utf-8" />
 		<title>Tracking</title>
 
+		<meta name="description" content="overview &amp; stats" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+		<!-- bootstrap & fontawesome -->
+		<link rel="stylesheet" href="assets/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="assets/font-awesome/4.5.0/css/font-awesome.min.css" />
-		<style media="screen">
-			/* @import url('https://fonts.googleapis.com/css?family=Cookie');
-			@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
-			@import url('https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css'); */
 
-			*{margin:0px;padding:0px;}
-			body{
-			background: url('assets/images/bg-login.jpg') no-repeat center center fixed;
-			}
-			.navigation {
-			background-color:#333;
-			width:100%;
-			height:50px;
-			box-shadow: 0px 1px 1px #c8c8c8;
-			line-height:50px;
-			color:#FFF;
-			}
-			.container {
-			width:760px;
-			margin:auto;
-			position: relative;
-			}
-			.title {
-			font-family:'Century Gothic';
-			font-size:32px;
-			cursor: pointer;
-			}
-			.search-control{
-			font-family:'Open Sans';
-			position: absolute;
-			right:0;
-			cursor: pointer;
-			color: #bbb;
-			}
-			.search-control:hover {color:#686868;}
-			.fa-home {
-			font-size:22px;
-			}
-			.search-box {
-			width:100%;
-			position: relative;
-			top:48px;
-			height:48px;
-			transition:opacity 0.4s linear ,visibility 0.4s linear 0s;
-			}
-			.search-box > #search {
-			width:640px;
-			height:48px;
-			border-radius:6px 0px 0px 6px;
-			box-shadow:none;
-			box-shadow: 1px 2px 2px #ddd;
-			}
-			input , input:focus {
-			border:none;
-			box-shadow:none;
-			background-color:none;
-			outline: 0;
-			font-size:16px;
-			font-family:'Century';
-			color:#bbb;
-			padding:0px 12px;
-			}
-			.also {
-			font-family:'fontawesome';
-			color:#bbb;
-			display:inline-block;
-			background-color:#fff;
-			height:48px;
-			width:48px;
-			line-height: 48px;
-			text-align: center;
-			cursor: pointer;
-			border-left:1px solid #ddd;
-			position: absolute;
-			top:0;
-			box-shadow: 1px 2px 2px #ddd;
-			}
-			.search-link:hover {color:#686868;}
-			.setting {
-			border-radius:0px 6px 6px 0px;
-			margin-left:48px;
-			font-size:18px;
-			}
-			.setting:hover {color:#686868;}
+		<!-- page specific plugin styles -->
+		<link rel="stylesheet" href="assets/css/bootstrap-duallistbox.min.css" />
+		<link rel="stylesheet" href="assets/css/bootstrap-multiselect.min.css" />
+		<link rel="stylesheet" href="assets/css/select2.min.css" />
 
-			.hasil{
-				width: 715px;
-				height: 100%;
-				background-color: #fff;
-				padding-bottom: 30px;
-			}
-		</style>
-		<script type="text/javascript">
-			var SearchControl = document.getElementById('SBox');
-			var ColorChange = document.getElementById('color');
+		<!-- text fonts -->
+		<link rel="stylesheet" href="assets/css/fonts.googleapis.com.css" />
 
-			function searchbox(num) {
-				if(num == "1"){
-				SearchControl.style.visibility = "visible";
-				SearchControl.style.opacity = "1";
-				} else if(num == "0") {
-				SearchControl.style.visibility = "hidden";
-				SearchControl.style.opacity = "0";
-				}
-			}
-		</script>
+		<!-- ace styles -->
+		<link rel="stylesheet" href="assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
+		<link rel="stylesheet" href="assets/css/ace-skins.min.css" />
+		<link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
+		<link rel="stylesheet" type="text/css" href="assets/css/jquery.dataTables.css">
+
+		<!-- dataTables -->
+		<script src="assets/js/jquery-2.1.4.min.js"></script>
+		<script src="assets/js/jquery.dataTables.min.js"></script>
+		<script src="assets/js/jquery.dataTables.bootstrap.min.js"></script>
+
+		<!-- gritter notification -->
+		<link rel="stylesheet" href="assets/css/jquery.gritter.min.css" />
+
+		<?php
+		function Tanggal($tanggal) {
+			$BulanIndo = array("Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember");
+			$tahun = substr($tanggal, 0, 4);
+			$bulan = substr($tanggal, 5, 2);
+			$tgl = substr($tanggal, 8, 2);
+
+			$hasil = $tgl . " " . $BulanIndo[(int) $bulan - 1] . " " . $tahun;
+			return ($hasil);
+		}
+
+		function Rupiah($rupiah) {
+			//format rupiah
+			$jumlah_desimal = "2";
+			$pemisah_desimal = ",";
+			$pemisah_ribuan = ".";
+
+			$hasil = number_format($rupiah, $jumlah_desimal, $pemisah_desimal, $pemisah_ribuan);
+			return ($hasil);
+		}
+		?>
 	</head>
-	<body>
+
+	<body class="skin-1 no-skin">
+
+		<div class="main-container ace-save-state" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.loadState('main-container')}catch(e){}
+			</script>

@@ -1,27 +1,27 @@
 <?php
-// route untuk manage user pegawai
-session_start();
+
 $menu       = isset($_GET['menu']) ? $_GET['menu']: '';
 $sub        = isset($_GET['sub']) ? $_GET['sub']: '';
-$base_url   = 'http://127.0.0.1/victory/';
-$url_api    = 'http://127.0.0.1/victory/action/';
+$base_url   = 'http://localhost/kanvas/';
+$url_api    = 'http://localhost/kanvas/action/';
 
-// load _header
-include_once '_header.php';
 
-// load content
-switch ($menu) {
+  // load _header
+  include_once '_header.php';
 
-    case 'tracking':
-        include_once 'users/pelanggan/tracking.php';
-    break;
+  // load content
+  switch ($menu) {
 
-    default:
-        include_once 'users/pelanggan/tracking.php';
-        break;
-}
+      case 'tracking':
+          include_once 'users/pelanggan/tracking.php';
+      break;
 
-// load footer
-include_once '_footer.php';
+      default:
+          include_once 'users/pelanggan/tracking.php';
+          break;
+  }
+
+  // load footer
+  include_once '_footer.php';
 
 ?>
