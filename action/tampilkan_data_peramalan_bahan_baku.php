@@ -12,7 +12,8 @@ $sql = "SELECT
         	SUM(
         		x.peramalan_produk * y.quantity
         	) AS hasil_peramalan,
-        	y.satuan
+        	y.satuan,
+            y.id_bahan_baku
         FROM
         	(
         		SELECT
@@ -28,6 +29,7 @@ $sql = "SELECT
         		k.id_produk,
         		k.quantity,
         		k.satuan,
+                bb.id_bahan_baku,
         		bb.nama_item
         	FROM
         		komposisi k
@@ -35,12 +37,14 @@ $sql = "SELECT
         ) AS y ON x.id_produk = y.id_produk
         GROUP BY
         	1,
-        	3";
+        	3,
+            4";
 $result = mysqli_query($conn, $sql);
 $data = array();
 $no = 1;
 while($row = mysqli_fetch_assoc($result)){
     $sub_array['no']                = $no++;
+    $sub_array['id_bahan_baku'] = $row['id_bahan_baku'];
     $sub_array['nama_item'] = $row['nama_item'];
     $sub_array['hasil_peramalan'] = $row['hasil_peramalan'];
     $sub_array['satuan']           = $row['satuan'];
