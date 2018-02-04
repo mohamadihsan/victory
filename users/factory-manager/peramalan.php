@@ -25,111 +25,175 @@
             <div class="row">
                 <div class="col-xs-12">
                     <!-- PAGE CONTENT BEGINS -->
+                    <?php
+                    if (isset($_GET['detail'])) {
 
-                    <button data-toggle="collapse" data-target=".tampil" class="btn btn-sm btn-primary"><i class="ace-icon fa fa-plus bigger-110"></i> Form</button>
-
-                    <div id="" class="collapse tampil">
-                        <div class="well">
-                            <form action="../action/peramalan.php" method="post" class="myform">
-
-                                <!-- hidden status hapus false -->
-                                <input type="hidden" name="hapus" value="0" class="form-control" placeholder="" readonly>
-
-                                <table class="table table-renponsive">
-                                    <caption>Masukkan Data Peramalan:</caption>
+                        // retrieve data dari API
+                        $file = file_get_contents($url_api."tampilkan_data_kebutuhan_bahan_baku.php?data=".$_GET['id_produk']."&f=".$_GET['f']."&periode=".$_GET['periode']);
+                        $json = json_decode($file, true);
+                        ?>
+                        <div id="" class="">
+                            <div class="well">
+                                <caption><h4>Kebutuhan Bahan Baku</h4></caption>
+                                <table class="table table-responsive">
                                     <tr>
-                                        <td width="15%">Produk</td>
-                                        <td>
-                                            <select name="id_produk" class="form-control select2" required>
-                                                <?php
-                                                // retrieve data dari API
-                                                $file = file_get_contents($url_api."tampilkan_data_produk.php");
-                                                $json = json_decode($file, true);
-                                                $i=0;
-                                                while ($i < count($json['data'])) {
-                                                    $id_produk[$i] = $json['data'][$i]['id_produk'];
-                                                    $nama_produk[$i] = $json['data'][$i]['id_produk'].' - '.$json['data'][$i]['nama_produk'];
-                                                    ?>
-                                                    <option value="<?= $id_produk[$i] ?>"> <?= $nama_produk[$i] ?></option>
-                                                    <?php
-                                                    $i++;
-                                                }
-                                                ?>
-                                            </select>
-                                        </td>
+                                        <th width="20%">ID PRODUK</th>
+                                        <th>: <?= $json['data_produk'][0]['id_produk'] ?></th>
                                     </tr>
                                     <tr>
-                                        <td width="15%">Periode</td>
-                                        <td>
-                                            <select name="bulan" class="form-control select2" required>
-                                                <option value="01">Januari</option>
-                                                <option value="02">Februari</option>
-                                                <option value="03">Maret</option>
-                                                <option value="04">April</option>
-                                                <option value="05">Mei</option>
-                                                <option value="06">Juni</option>
-                                                <option value="07">Juli</option>
-                                                <option value="08">Agustus</option>
-                                                <option value="09">September</option>
-                                                <option value="10">Oktober</option>
-                                                <option value="11">November</option>
-                                                <option value="12">Desember</option>
-                                            </select>
-                                            <select name="tahun" class="form-control select2" required>
-                                                <option value="2017">2017</option>
-                                            </select>
-                                        </td>
+                                        <th>NAMA PRODUK</th>
+                                        <th>: <?= $json['data_produk'][0]['nama_produk'] ?></th>
                                     </tr>
                                     <tr>
-                                        <td colspan="2">
-                                            <div class="btn-group">
-                                                <button type="submit" class="btn btn-sm btn-primary"><i class="ace-icon fa fa-save bigger-120"></i> Simpan</button>
-                                                <button type="reset" class="btn btn-sm btn-default"><i class="ace-icon fa fa-refresh bigger-120"></i> Reset</button>
-                                            </div>
-                                        </td>
+                                        <th>HARGA PRODUK</th>
+                                        <th>: <?= "Rp".Rupiah($json['data_produk'][0]['harga']) ?></th>
                                     </tr>
+                                    <tr>
+                                        <th>SAFETY STOCK</th>
+                                        <th>: <?= $json['data_produk'][0]['safety_stock'] ?></th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">PERAMALAN KEBUTUHAN BAHAN BAKU YANG HARUS DISEDIAKAN :</th>
+                                    </tr>
+
+                                    <?php
+                                    if (!isset($json['data'][0]['pesan'])) {
+                                        $i=0;
+                                        while ($i < count($json['data'])) {
+                                            $takaran[$i] = $json['data'][$i]['takaran'];
+                                            $bahan_baku[$i] = $json['data'][$i]['id_bahan_baku'].' - '.$json['data'][$i]['nama_bahan_baku'];
+                                            ?>
+                                              <tr>
+                                                  <td colspan="2"><?= $bahan_baku[$i].' sebanyak '.$takaran[$i] ?></td>
+                                              </tr>
+                                            <?php
+                                            $i++;
+                                        }
+                                    }else{ ?>
+                                      <tr>
+                                          <td colspan="2"><?= $json['data'][0]['pesan'] ?></td>
+                                      </tr>
+                                      <?php
+                                    }
+                                    ?>
+                                    <tfoot>
+                                        <tr>
+                                            <td><a href="./index.php?menu=peramalan" class="btn btn-sm btn-primary">Tampilkan List Peramalan</a></td>
+                                        </tr>
+                                    </tfoot>
+
                                 </table>
-                            </form>
-
-                              <!-- Tampilkan hasil -->
-                            <div id="result"></div>
-
+                            </div>
                         </div>
-                    </div>
+                        <?php
+                    }else { ?>
 
-                    <div id="" class="collapse tampil_detail">
-                        <div class="well">
-                        Produksi
-                        <button data-toggle="collapse" data-target=".tampil_detail" class="btn btn-sm"><i class="ace-icon fa fa-close bigger-110"></i> Tutup</button>
+                        <button data-toggle="collapse" data-target=".tampil" class="btn btn-sm btn-primary"><i class="ace-icon fa fa-plus bigger-110"></i> Form</button>
 
+                        <div id="" class="collapse tampil">
+                            <div class="well">
+                                <form action="../action/peramalan.php" method="post" class="myform">
+
+                                    <!-- hidden status hapus false -->
+                                    <input type="hidden" name="hapus" value="0" class="form-control" placeholder="" readonly>
+
+                                    <table class="table table-renponsive">
+                                        <caption>Masukkan Data Peramalan:</caption>
+                                        <tr>
+                                            <td width="15%">Produk</td>
+                                            <td>
+                                                <select name="id_produk" class="form-control select2" required>
+                                                    <?php
+                                                    // retrieve data dari API
+                                                    $file = file_get_contents($url_api."tampilkan_data_produk.php");
+                                                    $json = json_decode($file, true);
+                                                    $i=0;
+                                                    while ($i < count($json['data'])) {
+                                                        $id_produk[$i] = $json['data'][$i]['id_produk'];
+                                                        $nama_produk[$i] = $json['data'][$i]['id_produk'].' - '.$json['data'][$i]['nama_produk'];
+                                                        ?>
+                                                        <option value="<?= $id_produk[$i] ?>"> <?= $nama_produk[$i] ?></option>
+                                                        <?php
+                                                        $i++;
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="15%">Periode</td>
+                                            <td>
+                                                <select name="bulan" class="form-control select2" required>
+                                                    <option value="01">Januari</option>
+                                                    <option value="02">Februari</option>
+                                                    <option value="03">Maret</option>
+                                                    <option value="04">April</option>
+                                                    <option value="05">Mei</option>
+                                                    <option value="06">Juni</option>
+                                                    <option value="07">Juli</option>
+                                                    <option value="08">Agustus</option>
+                                                    <option value="09">September</option>
+                                                    <option value="10">Oktober</option>
+                                                    <option value="11">November</option>
+                                                    <option value="12">Desember</option>
+                                                </select>
+                                                <select name="tahun" class="form-control select2" required>
+                                                    <option value="2017">2017</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="btn-group">
+                                                    <button type="submit" class="btn btn-sm btn-primary"><i class="ace-icon fa fa-save bigger-120"></i> Simpan</button>
+                                                    <button type="reset" class="btn btn-sm btn-default"><i class="ace-icon fa fa-refresh bigger-120"></i> Reset</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </form>
+
+                                  <!-- Tampilkan hasil -->
+                                <div id="result"></div>
+
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- loading -->
-                    <center><div id="loading"></div></center>
+                        <div id="" class="collapse tampil_detail">
+                            <div class="well">
+                            Produksi
+                            <button data-toggle="collapse" data-target=".tampil_detail" class="btn btn-sm"><i class="ace-icon fa fa-close bigger-110"></i> Tutup</button>
 
-                    <div class="clearfix">
-                        <div class="pull-right tableTools-container"></div>
-                    </div>
-                    <div class="table-header">
-                        Daftar data "Peramalan"
-                    </div>
-                    <!-- div.table-responsive -->
+                            </div>
+                        </div>
 
-                    <!-- div.dataTables_borderWrap -->
-                    <div class="table table-responsive">
-                        <table id="mytable" class="display" width="100%" cellspacing="0">
-                            <thead>
-                                <tr class="">
-                                    <th width="7%" class="text-center">No</th>
-                                    <th width="15%" class="text-left">Periode</th>
-                                    <th width="40%" class="text-left">ID Produk</th>
-                                    <th width="15%" class="text-left">Hasil Peramalan</th>
-                                    <th width="5%" class="text-center"></th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
+                        <!-- loading -->
+                        <center><div id="loading"></div></center>
+
+                        <div class="clearfix">
+                            <div class="pull-right tableTools-container"></div>
+                        </div>
+                        <div class="table-header">
+                            Daftar data "Peramalan"
+                        </div>
+                        <!-- div.table-responsive -->
+
+                        <!-- div.dataTables_borderWrap -->
+                        <div class="table table-responsive">
+                            <table id="mytable" class="display" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr class="">
+                                        <th width="7%" class="text-center">No</th>
+                                        <th width="15%" class="text-left">Periode</th>
+                                        <th width="40%" class="text-left">ID Produk</th>
+                                        <th width="15%" class="text-left">Hasil Peramalan</th>
+                                        <th width="25%" class="text-center"></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <?php
+                    } ?>
                     <!-- PAGE CONTENT ENDS -->
                 </div><!-- /.col -->
             </div><!-- /.row -->
