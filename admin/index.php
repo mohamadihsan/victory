@@ -7,8 +7,8 @@ $bagian = strtolower(isset($_SESSION['bagian']) ? $_SESSION['bagian'] : '');
 //$bagian 	= 'pemilik';
 $menu 		= isset($_GET['menu']) ? $_GET['menu']: '';
 $sub 		= isset($_GET['sub']) ? $_GET['sub']: '';
-$base_url 	= 'http://127.0.0.1/victory/';
-$url_api 	= 'http://127.0.0.1/victory/action/';
+$base_url 	= 'http://localhost/victory/';
+$url_api 	= 'http://localhost/victory/action/';
 
 if ($bagian!='') {
 	// load _header
@@ -85,8 +85,8 @@ switch ($bagian) {
 					include_once '../users/factory-manager/bahan_baku.php';
 					break;
 
-				case 'detail_komposisi':
-					include_once '../users/factory-manager/detail_komposisi.php';
+				case 'tambah-komposisi':
+					include_once '../users/factory-manager/tambah_komposisi.php';
 					break;
 
 				case 'produk':

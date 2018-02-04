@@ -47,7 +47,7 @@
 
 													<input type="text" class="search-query" value="<?php if(isset($_POST['faktur'])) echo $_POST['faktur'] ?>" name="faktur" size="80px" placeholder="Masukkan Nomor Invoice Pembelian..." required />
 												</span>
-												<button class="btn btn-sm btn-primary" type="submit">Cari</button>
+												<button class="btn btn-sm" type="submit">Submit</button>
 											</form>
 
 											<div class="space"></div>

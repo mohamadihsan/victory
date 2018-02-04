@@ -96,7 +96,7 @@
                                     </tr>
                                     <tr>
                                         <td width="15%">Tanggal</td>
-                                        <td><input type="date" name="tanggal" value="" class="form-control" placeholder="" required></td>
+                                        <td><input type="date" name="tanggal" value="<?= date('Y-m-d') ?>" class="form-control" placeholder="" required></td>
                                     </tr>
                                     <tr>
                                         <td colspan="2">
@@ -129,15 +129,15 @@
                             <thead>
                                 <tr class="">
                                     <th width="5%" class="text-center">No</th>
-                                    <th width="15%" class="text-left">Nomor PO</th>
-                                    <th width="15%" class="text-left">Barang</th>
+                                    <th width="12%" class="text-left">Nomor PO</th>
+                                    <th width="12%" class="text-left">Barang</th>
                                     <th width="5%" class="text-left">Stok Awal</th>
                                     <th width="5%" class="text-center">Qty Order</th>
                                     <th width="5%" class="text-center">Outgoing Produksi</th>
                                     <th width="5%" class="text-center">Stok Akhir</th>
-                                    <th width="5%" class="text-center">Tanggal</th>
-                                    <th width="10%" class="text-center">Supplier</th>
-                                    <th width="15%" class="text-center"></th>
+                                    <th width="12%" class="text-center">Tanggal</th>
+                                    <th width="12%" class="text-center">Supplier</th>
+                                    <th width="10%" class="text-center"></th>
                                 </tr>
                             </thead>
                         </table>

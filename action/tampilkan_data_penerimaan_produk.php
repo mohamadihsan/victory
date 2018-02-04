@@ -17,20 +17,38 @@ $nomor_invoice = trim($nomor_invoice);
 
 // sql statement
 if($nomor_invoice==''){
-    $sql = "SELECT d.nomor_invoice, d.status_persetujuan, d.tanggal_pengiriman, d.status_pengiriman,
-                  p.nama_konsumen, p.alamat
-            FROM pengiriman_produk d
-            LEFT JOIN pemesanan_produk pp ON pp.nomor_invoice=d.nomor_invoice
-            LEFT JOIN konsumen p ON p.id_konsumen=pp.id_konsumen
-            ORDER BY d.tanggal_pengiriman DESC";
+    $sql = "SELECT
+            	d.nomor_invoice,
+            	d.status_persetujuan,
+            	d.tanggal_pengiriman,
+            	d.status_pengiriman,
+            	p.nama_konsumen,
+            	p.alamat
+            FROM
+            	pengiriman_produk d
+            LEFT JOIN pemesanan_produk pp ON pp.nomor_invoice = d.nomor_invoice
+            LEFT JOIN konsumen p ON p.id_konsumen = pp.id_konsumen
+            WHERE
+            	status_pengiriman NOT IN ('0')
+            ORDER BY
+            	d.tanggal_pengiriman DESC";
 }else{
-    $sql = "SELECT d.nomor_invoice, d.status_persetujuan, d.tanggal_pengiriman, d.status_pengiriman,
-                  p.nama_konsumen, p.alamat
-            FROM pengiriman_produk d
-            LEFT JOIN pemesanan_produk pp ON pp.nomor_invoice=d.nomor_invoice
-            LEFT JOIN konsumen p ON p.id_konsumen=pp.id_konsumen
-            WHERE d.nomor_invoice = '$nomor_invoice'
-            ORDER BY d.tanggal_pengiriman DESC";
+    $sql = "SELECT
+            	d.nomor_invoice,
+            	d.status_persetujuan,
+            	d.tanggal_pengiriman,
+            	d.status_pengiriman,
+            	p.nama_konsumen,
+            	p.alamat
+            FROM
+            	pengiriman_produk d
+            LEFT JOIN pemesanan_produk pp ON pp.nomor_invoice = d.nomor_invoice
+            LEFT JOIN konsumen p ON p.id_konsumen = pp.id_konsumen
+            WHERE
+                d.nomor_invoice = '$nomor_invoice' AND
+            	status_pengiriman NOT IN ('0')
+            ORDER BY
+            	d.tanggal_pengiriman DESC";
 }
 $result = mysqli_query($conn, $sql);
 $data = array();
@@ -44,12 +62,11 @@ while ($row = mysqli_fetch_assoc($result)) {
     $sub_array['nama_konsumen']        = $row['nama_konsumen'];
     $sub_array['alamat']                = $row['alamat'];
 
-    if ($row['status_pengiriman'] == 0) {
-        $sub_array['action']	              = ' <a href="./index.php?menu=pemesanan&invoice='.$row['nomor_invoice'].'" class="btn btn-warning btn-xs"><i class="ace-icon fa fa-file-text-o bigger-120"></i> Detail</a>
-                                                    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#kirim" onclick="return kirim(\''.$row['nomor_invoice'].'\')"><i class="ace-icon fa fa-truck bigger-120"></i> Kirim</button>';
+    if ($row['status_pengiriman'] == 1) {
+        $sub_array['action']	              = ' <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#terima" onclick="return terima(\''.$row['nomor_invoice'].'\')"><i class="ace-icon fa fa-user bigger-120"></i> Update</button>';
 
     }else {
-        $sub_array['action']	              = ' <a href="./index.php?menu=pemesanan&invoice='.$row['nomor_invoice'].'" class="btn btn-warning btn-xs"><i class="ace-icon fa fa-file-text-o bigger-120"></i> Detail</a>';
+        $sub_array['action']	              = ' ';
 
     }
 
@@ -77,9 +94,9 @@ while ($row = mysqli_fetch_assoc($result)) {
                                                 belum dikirim
                                             </span>';
     }else if ($sub_array['status_pengiriman'] == 1) {
-        $sub_array['status_pengiriman'] = '<span class="label label-success label-white middle">
-                                                <i class="ace-icon fa fa-check-square bigger-120"></i>
-                                                sudah dikirim
+        $sub_array['status_pengiriman'] = '<span class="label label-warning label-white middle">
+                                                <i class="ace-icon fa fa-exclamation-triangle bigger-120"></i>
+                                                belum diterima
                                             </span>';
     }else{
         $sub_array['status_pengiriman'] = '<span class="label label-success label-white middle">
