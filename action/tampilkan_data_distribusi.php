@@ -45,7 +45,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     $sub_array['alamat']                = $row['alamat'];
 
     if ($row['status_pengiriman'] == 0) {
-        $sub_array['action']	              = ' <a href="./index.php?menu=pemesanan&invoice='.$row['nomor_invoice'].'" class="btn btn-warning btn-xs"><i class="ace-icon fa fa-file-text-o bigger-120"></i> Detail</a>
+        $sub_array['action']	              = ' <a href="./index.php?menu=distribusi&invoice='.$row['nomor_invoice'].'" class="btn btn-warning btn-xs"><i class="ace-icon fa fa-file-text-o bigger-120"></i> Detail</a>
                                                     <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#kirim" onclick="return kirim(\''.$row['nomor_invoice'].'\')"><i class="ace-icon fa fa-truck bigger-120"></i> Kirim</button>';
 
     }else {
