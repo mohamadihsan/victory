@@ -215,11 +215,6 @@ $(document).ready(function(){
                 $('#komposisitable').DataTable().ajax.reload();
                 $("#tableproduk").hide();
                 $("#selanjutnya").collapse();
-                setTimeout(
-                    function()
-                    {
-                        $(location).attr('href', 'index.php?menu=komposisi&id=<?= $_GET['id'] ?>');
-                    }, 1500);
         },
             error: function(jqXHR, textStatus, errorThrown){
         }
@@ -249,6 +244,12 @@ $(document).ready(function(){
                 $("#loading").hide();
                 $("#selanjutnya").hide();
                 $("#tableproduk").show();
+
+                setTimeout(
+                    function()
+                    {
+                        $(location).attr('href', 'index.php?menu=komposisi&id=<?= $_GET['id'] ?>');
+                    }, 1500);
         },
             error: function(jqXHR, textStatus, errorThrown){
         }
