@@ -4,8 +4,8 @@ session_start();
 $session_id_supplier = isset($_SESSION['id_supplier']) ? $_SESSION['id_supplier'] : '';
 $menu       = isset($_GET['menu']) ? $_GET['menu']: '';
 $sub        = isset($_GET['sub']) ? $_GET['sub']: '';
-$base_url   = 'http://127.0.0.1/victory/';
-$url_api    = 'http://127.0.0.1/victory/action/';
+$base_url   = 'http://localhost/victory/';
+$url_api    = 'http://localhost/victory/action/';
 
 if ($session_id_supplier!='') {
 

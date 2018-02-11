@@ -11,10 +11,10 @@
         </div>
 
         <div class="page-content">
-            
+
             <div class="page-header">
                 <h1>
-                    Barang 
+                    Barang
                     <small>
                         <i class="ace-icon fa fa-angle-double-right"></i>
                         Pengolahan Data
@@ -27,11 +27,11 @@
                     <!-- PAGE CONTENT BEGINS -->
 
                     <button data-toggle="collapse" data-target=".tampil" class="btn btn-sm"><i class="ace-icon fa fa-plus bigger-110"></i> Form</button>
-                    
+
                     <div id="" class="collapse tampil">
                         <div class="well">
                             <form action="../action/barang_supplier.php" method="post" class="myform">
-                                
+
                                 <!-- hidden status hapus false -->
                                 <input type="hidden" name="hapus" value="0" class="form-control" placeholder="" readonly>
 
@@ -48,9 +48,9 @@
                                                 $i=0;
                                                 while ($i < count($json['data'])) {
                                                     $id_bahan_baku[$i] = $json['data'][$i]['id_bahan_baku'];
-                                                    $nama_bahan_baku[$i] = $json['data'][$i]['id_bahan_baku'].' - '.$json['data'][$i]['nama_bahan_baku'];
+                                                    $nama_item[$i] = $json['data'][$i]['id_bahan_baku'].' - '.$json['data'][$i]['nama_item'];
                                                     ?>
-                                                    <option value="<?= $id_bahan_baku[$i] ?>"> <?= $nama_bahan_baku[$i] ?></option>
+                                                    <option value="<?= $id_bahan_baku[$i] ?>"> <?= $nama_item[$i] ?></option>
                                                     <?php
                                                     $i++;
                                                 }
@@ -60,15 +60,11 @@
                                     </tr>
                                     <tr>
                                         <td width="15%">Harga</td>
-                                        <td><input type="number" name="harga" value="" class="form-control" placeholder="" required></td>
+                                        <td><input type="number" name="harga_jual" value="" min="0" class="form-control" placeholder="" required></td>
                                     </tr>
                                     <tr>
-                                        <td width="15%">Minimal Order</td>
-                                        <td><input type="number" name="minimal_order" value="" class="form-control" placeholder="" required></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="15%">Kelipatan Order</td>
-                                        <td><input type="number" name="kelipatan_order" value="" class="form-control" placeholder="" required></td>
+                                        <td width="15%">Stok</td>
+                                        <td><input type="number" name="stok" value="" min="0" class="form-control" placeholder="" required></td>
                                     </tr>
                                     <tr>
                                         <td colspan="2">
@@ -79,10 +75,10 @@
                                         </td>
                                     </tr>
                                 </table>
-                            </form>    
+                            </form>
                         </div>
                     </div>
-                    
+
                     <!-- loading -->
                     <center><div id="loading"></div></center>
                     <div id="result"></div>
@@ -101,12 +97,11 @@
                             <thead>
                                 <tr class="">
                                     <th width="7%" class="text-center">No</th>
-                                    <th width="15%" class="text-left">ID</th>
+                                    <th width="15%" class="text-left">Kode</th>
                                     <th width="20%" class="text-left">Nama</th>
-                                    <th width="15%" class="text-left">Satuan</th>
+                                    <th width="15%" class="text-left">Ukuran</th>
                                     <th width="15%" class="text-center">Harga</th>
-                                    <th width="15%" class="text-center">Minimal Order</th>
-                                    <th width="15%" class="text-center">Kelipatan Order</th>
+                                    <th width="15%" class="text-center">Stok</th>
                                     <th width="10%" class="text-center"></th>
                                 </tr>
                             </thead>
@@ -136,24 +131,23 @@
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Hapus</button>
                 </div>
-            </form>    
+            </form>
         </div>
     </div>
 </div>
-            
+
 <script>
-    function ubah(id_bahan_baku, harga, minimal_order, kelipatan_order){
+    function ubah(id_bahan_baku, harga_jual, stok){
         $('.well select[name=id_bahan_baku]').val(id_bahan_baku);
-        $('.well input[name=harga]').val(harga);
-        $('.well input[name=minimal_order]').val(minimal_order);
-        $('.well input[name=kelipatan_order]').val(kelipatan_order);
+        $('.well input[name=harga_jual]').val(harga_jual);
+        $('.well input[name=stok]').val(stok);
     }
 
     function hapus(id_bahan_baku){
         $('.modal-body input[name=id_bahan_baku]').val(id_bahan_baku);
     }
-    
-    // LOADING SCREEN WHILE PROCESS SAVING/UPDATE/DELETE DATA 
+
+    // LOADING SCREEN WHILE PROCESS SAVING/UPDATE/DELETE DATA
     $(document).ready(function(){
 
         $('#mytable').DataTable({
@@ -167,11 +161,10 @@
                      "aoColumns": [
                             { mData: 'no' } ,
                             { mData: 'id_bahan_baku' } ,
-                            { mData: 'nama_bahan_baku' } ,
+                            { mData: 'nama_item' } ,
                             { mData: 'satuan' },
-                            { mData: 'harga' },
-                            { mData: 'minimal_order' },
-                            { mData: 'kelipatan_order' },
+                            { mData: 'harga_jual' },
+                            { mData: 'stok' },
                             { mData: 'action'}
                     ]
         });
@@ -179,19 +172,19 @@
         //Callback handler for form submit event
         $(".myform").submit(function(e)
         {
-      
+
         var formObj = $(this);
         var formURL = formObj.attr("action");
         var formData = new FormData(this);
         $.ajax({
             url: formURL,
             type: 'POST',
-            data:  formData,        
+            data:  formData,
             contentType: false,
             cache: false,
             processData:false,
             beforeSend: function (){
-                       $("#loading").show(1000).html("<img src='../assets/images/loading.gif' height='100'>");                   
+                       $("#loading").show(1000).html("<img src='../assets/images/loading.gif' height='100'>");
                        },
             success: function(data, textStatus, jqXHR){
                     $("#result").html(data);
@@ -200,14 +193,11 @@
                     $('#mytable').DataTable().ajax.reload();
             },
                 error: function(jqXHR, textStatus, errorThrown){
-         }         
+         }
         });
             e.preventDefault(); //Prevent Default action.
             e.unbind();
-        });    
+        });
 
     });
 </script>
-
-
-
