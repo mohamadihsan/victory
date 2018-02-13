@@ -61,14 +61,15 @@
                     if (isset($_POST['faktur'])) {
 
                         // retrieve data dari API
-                        $file = file_get_contents($url_api."tracking.php?nomor_faktur=".$_POST['faktur']);
+                        $file = file_get_contents($url_api."tracking.php?nomor_invoice=".$_POST['faktur']);
                         $json = json_decode($file, true);
                         $i=0;
+
                         if($i < count($json['data'])) {
-                            $nomor_faktur[$i]       = $json['data'][$i]['nomor_faktur'];
-                            $nama_pelanggan[$i]     = $json['data'][$i]['nama_pelanggan'];
+                            $nomor_invoice[$i]       = $json['data'][$i]['nomor_invoice'];
+                            $nama_konsumen[$i]     = $json['data'][$i]['nama_konsumen'];
                             $status_pemesanan[$i]   = $json['data'][$i]['status_pemesanan'];
-                            $status[$i]             = $json['data'][$i]['status'];
+                            $status[$i]             = $json['data'][$i]['status_pembayaran'];
                             $tanggal_pemesanan[$i]  = $json['data'][$i]['tanggal_pemesanan'];
                             $alamat[$i]             = $json['data'][$i]['alamat'];
                             $no_telp[$i]            = $json['data'][$i]['no_telp'];
@@ -80,7 +81,7 @@
                               <table class="table table-responsive">
                                 <tr>
                                   <td width="15%">Nomor Faktur</td>
-                                  <td>: <?= $nomor_faktur[$i] ?></td>
+                                  <td>: <?= $nomor_invoice[$i] ?></td>
                                 </tr>
 
                                 <tr>
@@ -90,7 +91,7 @@
 
                                 <tr>
                                   <td width="15%">Pelanggan</td>
-                                  <td>: <?= $nama_pelanggan[$i] ?></td>
+                                  <td>: <?= $nama_konsumen[$i] ?></td>
                                 </tr>
 
                                 <tr>

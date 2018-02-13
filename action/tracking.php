@@ -12,14 +12,14 @@ function Tanggal($tanggal) {
     return ($hasil);
 }
 
-$nomor_faktur = mysqli_escape_string($conn, trim($_GET['nomor_faktur']));
+$nomor_invoice = mysqli_escape_string($conn, trim($_GET['nomor_invoice']));
 
 // sql statement
 $sql = "SELECT pp.nomor_invoice, pp.id_konsumen, pp.status_pemesanan, pp.status_pembayaran, pp.tanggal_pemesanan, pp.total_pembayaran,
                 p.nama_konsumen, p.alamat, p.no_telp, p.email
         FROM pemesanan_produk pp
         LEFT JOIN konsumen p ON p.id_konsumen=pp.id_konsumen
-        WHERE pp.nomor_faktur='$nomor_faktur'
+        WHERE pp.nomor_invoice='$nomor_invoice'
         ORDER BY pp.tanggal_pemesanan DESC";
 
 $result = mysqli_query($conn, $sql);
@@ -27,7 +27,7 @@ $data = array();
 $no = 1;
 while ($row = mysqli_fetch_assoc($result)) {
     $sub_array['no']                = $no++;
-    $sub_array['nomor_faktur']      = $row['nomor_faktur'];
+    $sub_array['nomor_invoice']      = $row['nomor_invoice'];
     $sub_array['id_konsumen']      = $row['id_konsumen'];
     $sub_array['status']            = strtoupper($row['status_pemesanan']);
     $sub_array['status_pemesanan']  = strtoupper($row['status_pemesanan']);
@@ -40,13 +40,17 @@ while ($row = mysqli_fetch_assoc($result)) {
     $sub_array['email']= $row['email'];
 
     // ubah tampilan data
-    if ($sub_array['status_pemesanan'] == 'SP') {
+        if ($sub_array['status_pemesanan'] == 'P') {
         $sub_array['status_pemesanan'] = '<span class="label label-warning label-white middle">
-                                                sedang diproses
+                                                pending
                                             </span>';
-    }else if ($sub_array['status_pemesanan'] == 'DK') {
+    }else if ($sub_array['status_pemesanan'] == 'S') {
         $sub_array['status_pemesanan'] = '<span class="label label-info label-white middle">
                                                 proses pengiriman
+                                            </span>';
+    }else if ($sub_array['status_pemesanan'] == 'T') {
+        $sub_array['status_pemesanan'] = '<span class="label label-danger label-white middle">
+                                                ditolak
                                             </span>';
     }else{
         $sub_array['status_pemesanan'] = '<span class="label label-success label-white middle">
