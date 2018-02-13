@@ -14,7 +14,7 @@ if(mysqli_escape_string($conn, trim($_POST['hapus']))=='0'){
 
 if ($id_kebutuhan_produksi=='') {
     $id_kebutuhan_produksi = date('mdHs');
-    
+
     // simpan data
     $sql = "INSERT INTO kebutuhan_produksi (id_kebutuhan_produksi, id_produk, quantity_produksi, tanggal, status)
             VALUES ('$id_kebutuhan_produksi', '$id_produk', '$quantity_produksi', '$tanggal', '$status')";
@@ -24,9 +24,10 @@ if ($id_kebutuhan_produksi=='') {
         $pesan_gagal = "Data gagal disimpan";
     }
 }else if($id_kebutuhan_produksi!='' AND empty(mysqli_escape_string($conn, trim($_POST['hapus'])))){
+
     // perbaharui data
     $sql = "UPDATE kebutuhan_produksi
-            SET id_kebutuhan_produksi='$id_kebutuhan_produksi', id_produk='$id_produk', quantity_produksi='$quantity_produksi', tanggal='$tanggal', status='$status'
+            SET id_produk='$id_produk', quantity_produksi='$quantity_produksi', tanggal='$tanggal', status='$status'
             WHERE id_kebutuhan_produksi='$id_kebutuhan_produksi'";
     if(mysqli_query($conn, $sql)){
         $pesan_berhasil = "Data berhasil diperbaharui";
