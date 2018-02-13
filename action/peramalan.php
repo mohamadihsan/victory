@@ -63,7 +63,6 @@ if(mysqli_escape_string($conn, trim($_POST['hapus']))=='0'){
         // count bt
         $bt = ($alpha / (1 - $alpha)) * ($exp_smoothing_bulan_kemarin - $double_exp_smoothing_bulan_kemarin);
 
-
     }else{
         // jumlah pemesanan sebulan sebelum periode yang dicari
         $sql = "SELECT
@@ -108,6 +107,8 @@ if(mysqli_escape_string($conn, trim($_POST['hapus']))=='0'){
             $hasil_peramalan = 0;
             $at = 0;
             $bt = 0;
+            $exp_smoothing_bulan_kemarin = 0;
+            $double_exp_smoothing_bulan_kemarin = 0;
         }else{
             // cek terlebih dahulu apakah sudah ada data peramalan atau belum
             // jumlah peramalan 1 bulan yang lalu dari periode yang dicari
