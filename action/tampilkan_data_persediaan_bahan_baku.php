@@ -32,7 +32,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     $sub_array['quantity_order']        = $row['quantity_order'];
     $sub_array['outgoing_produksi']     = $row['outgoing_produksi'];
     $sub_array['balance_stok_akhir']    = $row['balance_stok_akhir'];
-    $sub_array['tanggal']               = $row['tanggal'];
+    $sub_array['tanggal']               = date('d-m-Y', strtotime($row['tanggal']));
     $sub_array['nama_supplier']         = $row['nama_supplier'];
 	$sub_array['action']	            = ' <a href="" class="btn btn-warning btn-xs" title="Detail"><i class="ace-icon fa fa-file-text-o bigger-120"></i> </a>
                                             <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#hapus" title="Hapus" onclick="return hapus(\''.$row['id_bahan_baku'].'\', \''.$row['nomor_po'].'\')"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button>';
