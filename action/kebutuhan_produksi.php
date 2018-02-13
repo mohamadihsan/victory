@@ -13,6 +13,7 @@ if(mysqli_escape_string($conn, trim($_POST['hapus']))=='0'){
 
 
 if ($id_kebutuhan_produksi=='') {
+    $id_kebutuhan_produksi = date('mdHs');
     
     // simpan data
     $sql = "INSERT INTO kebutuhan_produksi (id_kebutuhan_produksi, id_produk, quantity_produksi, tanggal, status)
