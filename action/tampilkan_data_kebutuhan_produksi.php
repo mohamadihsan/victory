@@ -20,7 +20,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     $sub_array['quantity_produksi']        = $row['quantity_produksi'];
     $sub_array['tanggal']             = $row['tanggal'];
     $sub_array['status']             = $row['status'];
-	  $sub_array['action']		        = ' <button type="button" class="btn btn-warning btn-xs" data-toggle="collapse" data-target=".tampil" onclick="return ubah(\''.$row['id_kebutuhan_produksi'].'\',\''.$row['id_produk'].'\',\''.$row['nama_produk'].'\',\''.$row['tanggal'].'\',\''.$row['quantity_produksi'].'\',\''.$row['tanggal'].'\',\''.$row['status'].'\')"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i> </button>
+	  $sub_array['action']		        = ' <button type="button" class="btn btn-warning btn-xs" data-toggle="collapse" data-target=".tampil" onclick="return ubah(\''.$row['id_kebutuhan_produksi'].'\',\''.$row['id_produk'].'\',\''.$row['tanggal'].'\',\''.$row['quantity_produksi'].'\',\''.$row['tanggal'].'\',\''.$row['status'].'\')"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i> </button>
                                         <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#hapus" onclick="return hapus(\''.$row['id_kebutuhan_produksi'].'\')"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button>';
 
     $data[] = $sub_array;

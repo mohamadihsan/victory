@@ -150,7 +150,7 @@
 </div>
 
 <script>
-    function ubah(id_kebutuhan_produksi, id_produk, quantity_produksi, tanggal, status){
+    function ubah(id_kebutuhan_produksi, id_produk, tanggal,quantity_produksi, status){
         $('.well input[name=id_kebutuhan_produksi]').val(id_kebutuhan_produksi);
         $('.well input[name=id_produk]').val(id_produk);
         $('.well input[name=quantity_produksi]').val(quantity_produksi);
