@@ -75,7 +75,7 @@
                                     <tr class="hidden">
                                         <td width="15%">Status</td>
                                         <td>
-                                            <input type="text" name="status" value="0" required>
+                                            <input type="text" name="status" value="1" required>
                                         </td>
                                     </tr>
                                     <tr>
