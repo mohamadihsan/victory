@@ -16,17 +16,53 @@ if(mysqli_escape_string($conn, trim($_POST['hapus']))=='0'){
     $alpha      = 0.3;
 
     // jumlah peramalan 1 bulan yang lalu dari periode yang dicari
-    $sql = "SELECT hasil_peramalan, at, bt
+    $sql = "SELECT hasil_peramalan, single_exp, double_exp, at, bt
             FROM peramalan
             WHERE DATE_FORMAT(periode,'%m-%Y') = '$periode_bulan_sebelumnya'";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
     $at = $row['at'];
     $bt = $row['bt'];
+    $single_exp = $row['single_exp'];
+    $double_exp = $row['double_exp'];
     if ($bt != 0) {
 
         // peramalan bulan selanjutnya
         $hasil_peramalan = ceil($at + $bt);
+
+        $sql = "SELECT
+                	dpp.id_produk,
+                	SUM(dpp.quantity) AS omzet_bulan_sekarang
+                FROM
+                	pemesanan_produk pp
+                LEFT JOIN detail_pemesanan_produk dpp ON dpp.nomor_invoice = pp.nomor_invoice
+                WHERE
+                	DATE_FORMAT(
+                		pp.tanggal_pemesanan,
+                		'%m-%Y'
+                	) = '$periode'
+                GROUP BY
+                	1";
+        $result = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_assoc($result);
+        $omzet_bulan_sekarang = $row['omzet_bulan_sekarang'];
+
+        if ($omzet_bulan_sekarang == null) {
+            $omzet_bulan_sekarang = 0;
+        }
+
+        // count single exponential
+        $exp_smoothing_bulan_kemarin = ($alpha * $omzet_bulan_sekarang) + (1-$alpha) * $single_exp;
+
+        // count double exponential
+        $double_exp_smoothing_bulan_kemarin = ($alpha * $exp_smoothing_bulan_kemarin) + (1-$alpha) * $double_exp;
+
+        // count at
+        $at = 2 * $exp_smoothing_bulan_kemarin - $double_exp_smoothing_bulan_kemarin;
+
+        // count bt
+        $bt = ($alpha / (1 - $alpha)) * ($exp_smoothing_bulan_kemarin - $double_exp_smoothing_bulan_kemarin);
+
 
     }else{
         // jumlah pemesanan sebulan sebelum periode yang dicari
@@ -116,25 +152,27 @@ if(mysqli_escape_string($conn, trim($_POST['hapus']))=='0'){
 
     $periode = $tahun.'-'.$bulan.'-01';
     // cek data apakah sudah tersedia atau belum
-    $sql = "SELECT id_peramalan, at, bt
+    $sql = "SELECT id_peramalan, single_exp, double_exp, at, bt
             FROM peramalan
             WHERE periode='$periode' AND id_produk='$id_produk'";
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) > 0) {
         $data = mysqli_fetch_assoc($result);
         $id_peramalan = $data['id_peramalan'];
+        $single_exp = $data['single_exp'];
+        $double_exp = $data['double_exp'];
         $at = $data['at'];
         $bt = $data['bt'];
 
         // update data
         $sql = "UPDATE peramalan
-                SET hasil_peramalan = '$hasil_peramalan', at='$at', bt='$bt'
+                SET hasil_peramalan = '$hasil_peramalan', single_exp='$exp_smoothing_bulan_kemarin', double_exp='$double_exp_smoothing_bulan_kemarin', at='$at', bt='$bt'
                 WHERE id_peramalan = '$id_peramalan'";
         mysqli_query($conn, $sql);
     }else{
         // simpan data
-        $sql = "INSERT INTO peramalan (periode, id_produk, hasil_peramalan, at, bt)
-                VALUES ('$periode', '$id_produk', '$hasil_peramalan', '$at', $bt)";
+        $sql = "INSERT INTO peramalan (periode, id_produk, hasil_peramalan, single_exp, double_exp, at, bt)
+                VALUES ('$periode', '$id_produk', '$hasil_peramalan', '$exp_smoothing_bulan_kemarin', '$double_exp_smoothing_bulan_kemarin', '$at', $bt)";
         if(mysqli_query($conn, $sql)){
             $pesan_berhasil = "Data peramalan telah disimpan";
         }else{
