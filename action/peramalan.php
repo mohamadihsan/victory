@@ -75,7 +75,7 @@ if(mysqli_escape_string($conn, trim($_POST['hapus']))=='0'){
                 			detail_pemesanan_produk dpp
                 		LEFT JOIN pemesanan_produk pp ON pp.nomor_invoice = dpp.nomor_invoice
                 		WHERE
-                			dpp.id_produk = 'PR001'
+                			dpp.id_produk = '$id_produk'
                 		AND DATE_FORMAT(tanggal_pemesanan, '%m-%Y') = '$periode_dua_bulan_sebelumnya'
                 	) AS w
                 JOIN (
@@ -85,7 +85,7 @@ if(mysqli_escape_string($conn, trim($_POST['hapus']))=='0'){
                 		detail_pemesanan_produk dpp
                 	LEFT JOIN pemesanan_produk pp ON pp.nomor_invoice = dpp.nomor_invoice
                 	WHERE
-                		dpp.id_produk = 'PR001'
+                		dpp.id_produk = '$id_produk'
                 	AND DATE_FORMAT(tanggal_pemesanan, '%m-%Y') = '$periode_bulan_sebelumnya'
                 ) AS x
                 JOIN (
@@ -95,7 +95,7 @@ if(mysqli_escape_string($conn, trim($_POST['hapus']))=='0'){
                 		detail_pemesanan_produk dpp
                 	LEFT JOIN pemesanan_produk pp ON pp.nomor_invoice = dpp.nomor_invoice
                 	WHERE
-                		dpp.id_produk = 'PR001'
+                		dpp.id_produk = '$id_produk'
                 	AND DATE_FORMAT(tanggal_pemesanan, '%m-%Y') = '$periode'
                 ) AS y";
         $result = mysqli_query($conn, $sql);
