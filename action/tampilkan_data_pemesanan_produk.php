@@ -18,17 +18,17 @@ $status       = isset($_GET['s']) ? $_GET['s']: '';
 
 // sql statement
 if($id_konsumen==''){
-    $sql = "SELECT nomor_invoice, id_konsumen, status_pemesanan, ketersediaan_produk, total_pembayaran, bukti_pembayaran, status_pembayaran
+    $sql = "SELECT nomor_invoice, id_konsumen, status_pemesanan, ketersediaan_produk, total_pembayaran, bukti_pembayaran, status_pembayaran, tanggal_pemesanan
             FROM pemesanan_produk
             ORDER BY nomor_invoice DESC";
 }else{
-    $sql = "SELECT nomor_invoice, id_konsumen, status_pemesanan, ketersediaan_produk, total_pembayaran, bukti_pembayaran, status_pembayaran
+    $sql = "SELECT nomor_invoice, id_konsumen, status_pemesanan, ketersediaan_produk, total_pembayaran, bukti_pembayaran, status_pembayaran, tanggal_pemesanan
     FROM pemesanan_produk
     WHERE id_konsumen = '$id_konsumen'
     ORDER BY nomor_invoice DESC";
 
     if ($status=='false') {
-        $sql = "SELECT  nomor_invoice, id_konsumen, status_pemesanan, ketersediaan_produk, total_pembayaran, bukti_pembayaran, status_pembayaran
+        $sql = "SELECT  nomor_invoice, id_konsumen, status_pemesanan, ketersediaan_produk, total_pembayaran, bukti_pembayaran, status_pembayaran, tanggal_pemesanan
         FROM pemesanan_produk
         WHERE id_konsumen = '$id_konsumen' AND tanggal_pembayaran IS NULL AND bukti_pembayaran IS NULL
         ORDER BY tanggal_pemesanan DESC";
@@ -42,6 +42,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     $sub_array['nomor_invoice']       = $row['nomor_invoice'];
     $sub_array['id_konsumen']         = $row['id_konsumen'];
     $sub_array['status_pemesanan']    = $row['status_pemesanan'];
+    $sub_array['tanggal_pemesanan']   = Tanggal($row['tanggal_pemesanan']);
     $sub_array['ketersediaan_produk'] = $row['ketersediaan_produk'];
     $sub_array['total_pembayaran']    = $row['total_pembayaran'];
     $sub_array['bukti_pembayaran']    = $row['bukti_pembayaran'];

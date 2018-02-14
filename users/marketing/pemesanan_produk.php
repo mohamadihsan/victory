@@ -278,7 +278,8 @@
                                     <tr class="">
                                         <th width="5%" class="text-center">No</th>
                                         <th width="15%" class="text-left">Invoice</th>
-                                        <th width="10%" class="text-left">Konsumen</th>
+                                        <th width="15%" class="text-left">Konsumen</th>
+                                        <th width="15%" class="text-left">Tanggal Pemesanan</th>
                                         <th width="15%" class="text-left">Status Pemesanan</th>
                                         <th width="15%" class="text-left">Status Barang</th>
                                         <th width="15%" class="text-left">Status Pembayaran</th>
@@ -396,6 +397,7 @@
                             { mData: 'no' } ,
                             { mData: 'nomor_invoice' } ,
                             { mData: 'id_konsumen' } ,
+                            { mData: 'tanggal_pemesanan' },
                             { mData: 'status_pemesanan' },
                             { mData: 'ketersediaan_produk' },
                             { mData: 'status_pembayaran' },
