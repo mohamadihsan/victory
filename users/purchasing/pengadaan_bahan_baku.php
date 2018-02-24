@@ -92,6 +92,7 @@
                                                 <th width="20%">Bahan Baku</th>
                                                 <th width="15%">Quantity</th>
                                                 <th>Satuan</th>
+                                                <th>Supplier</th>
                                             </tr>
                                             <?php
                                             while ($i < count($json['data'])) {
@@ -100,6 +101,9 @@
                                                 $nama_item[$i] = $json['data'][$i]['nama_item'];
                                                 $hasil_peramalan[$i] = $json['data'][$i]['hasil_peramalan'];
                                                 $satuan[$i] = $json['data'][$i]['satuan'];
+
+                                                $file2 = file_get_contents($url_api."tampilkan_data_detail_barang_supplier.php?id=".$id_bahan_baku[$i]);
+                                                $json2 = json_decode($file2, true);
                                                 ?>
                                                 <tr>
                                                     <td><?= $no[$i] ?></td>
@@ -111,6 +115,24 @@
                                                         <input type="text" name="quantity[]" class="form-control" value="<?= $hasil_peramalan[$i] ?>">
                                                     </td>
                                                     <td><?= $satuan[$i] ?></td>
+                                                    <td>
+                                                        <select class="form-control select2" name="id_supplier[]">
+                                                            <?php
+                                                            $j = 0;
+                                                            while ($j < count($json2['data'])) {
+                                                                $id_supplier = $json2['data'][$j]['id_supplier'];
+                                                                $nama_supplier = $json2['data'][$j]['nama_supplier'];
+                                                                $harga_jual = $json2['data'][$j]['harga_jual'];
+                                                                $stok = $json2['data'][$j]['stok'];
+                                                                $waktu_pengiriman = $json2['data'][$j]['waktu_pengiriman'];
+                                                                ?>
+                                                                <option value="<?= $id_supplier ?>"><?= $nama_supplier.' (Rp.'.Rupiah($harga_jual).' - '.$waktu_pengiriman.' hari)' ?></option>
+                                                                <?php
+                                                                $j++;
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                    </td>
                                                 </tr>
                                                 <?php
                                                 $i++;

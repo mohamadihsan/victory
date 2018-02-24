@@ -10,6 +10,8 @@ if(mysqli_escape_string($conn, trim($_POST['hapus']))=='0'){
     $deskripsi      = mysqli_escape_string($conn, trim($_POST['deskripsi']));
     $warna          = mysqli_escape_string($conn, trim($_POST['warna']));
     $harga          = mysqli_escape_string($conn, trim($_POST['harga']));
+    $stock          = mysqli_escape_string($conn, trim($_POST['stock']));
+    $kapasitas_produksi  = mysqli_escape_string($conn, trim($_POST['kapasitas_produksi']));
 }
 
 if ($id_produk=='') {
@@ -33,8 +35,8 @@ if ($id_produk=='') {
     $id_produk = buat_kode_produk($init, $id_terakhir_tersimpan);
 
     // simpan data
-    $sql = "INSERT INTO produk (id_produk, nama_produk, style, deskripsi, warna, harga)
-            VALUES ('$id_produk', '$nama_produk', '$style', '$deskripsi', '$warna', '$harga')";
+    $sql = "INSERT INTO produk (id_produk, nama_produk, style, deskripsi, warna, harga, stock, kapasitas_produksi)
+            VALUES ('$id_produk', '$nama_produk', '$style', '$deskripsi', '$warna', '$harga', '$stock', '$kapasitas_produksi')";
     if(mysqli_query($conn, $sql)){
         $pesan_berhasil = "Data berhasil disimpan";
     }else{
@@ -43,7 +45,7 @@ if ($id_produk=='') {
 }else if($id_produk!='' AND empty(mysqli_escape_string($conn, trim($_POST['hapus'])))){
     // perbaharui data
     $sql = "UPDATE produk
-            SET nama_produk='$nama_produk', style='$style', deskripsi='$deskripsi', warna='$warna', harga='$harga'
+            SET nama_produk='$nama_produk', style='$style', deskripsi='$deskripsi', warna='$warna', harga='$harga', stock='$stock', kapasitas_produksi='$kapasitas_produksi'
             WHERE id_produk='$id_produk'";
     if(mysqli_query($conn, $sql)){
         $pesan_berhasil = "Data berhasil diperbaharui";

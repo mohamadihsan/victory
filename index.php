@@ -2,8 +2,8 @@
 
 $menu       = isset($_GET['menu']) ? $_GET['menu']: '';
 $sub        = isset($_GET['sub']) ? $_GET['sub']: '';
-$base_url   = 'http://localhost/victory/';
-$url_api    = 'http://localhost/victory/action/';
+$base_url   = 'http://pt-ivg-purwakarta.com/';
+$url_api    = 'http://pt-ivg-purwakarta.com/action/';
 
 
   // load _header

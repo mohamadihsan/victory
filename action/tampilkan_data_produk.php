@@ -13,7 +13,7 @@ function Rupiah($rupiah) {
 }
 
 // sql statement
-$sql = "SELECT id_produk, nama_produk, style, deskripsi, warna, harga, gambar_produk
+$sql = "SELECT id_produk, nama_produk, style, deskripsi, warna, harga, stock, kapasitas_produksi, gambar_produk
         FROM produk
         ORDER BY id_produk ASC";
 $result = mysqli_query($conn, $sql);
@@ -27,10 +27,12 @@ while ($row = mysqli_fetch_assoc($result)) {
     $sub_array['deskripsi']     = $row['deskripsi'];
     $sub_array['warna']         = $row['warna'];
     $sub_array['harga']         = Rupiah($row['harga']);
+    $sub_array['stock']         = $row['stock'];
+    $sub_array['kapasitas_produksi']         = $row['kapasitas_produksi'];
     $sub_array['gambar_produk'] = '<img src="../assets/images/'.$row['gambar_produk'].'" alt="produk" class="img-responsive" width="80px" height="80px" >';
     $sub_array['nama_file_gambar'] = $row['gambar_produk'];
-	$sub_array['action']        = ' <a href="index.php?menu=komposisi&id='.$row['id_produk'].'" class="btn btn-default btn-xs" title="Komposisi"><i class="fa fa-file-text-o"></i></a> 
-                                    <button type="button" class="btn btn-warning btn-xs" data-toggle="collapse" data-target=".tampil" title="Ubah" onclick="return ubah(\''.$row['id_produk'].'\',\''.$row['nama_produk'].'\',\''.$row['style'].'\',\''.$row['deskripsi'].'\',\''.$row['warna'].'\',\''.$row['harga'].'\')"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i> </button>
+	$sub_array['action']        = ' <a href="index.php?menu=komposisi&id='.$row['id_produk'].'" class="btn btn-default btn-xs" title="Komposisi"><i class="fa fa-file-text-o"></i></a>
+                                    <button type="button" class="btn btn-warning btn-xs" data-toggle="collapse" data-target=".tampil" title="Ubah" onclick="return ubah(\''.$row['id_produk'].'\',\''.$row['nama_produk'].'\',\''.$row['style'].'\',\''.$row['deskripsi'].'\',\''.$row['warna'].'\',\''.$row['harga'].'\',\''.$row['stock'].'\',\''.$row['kapasitas_produksi'].'\')"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i> </button>
                                     <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#hapus" title="Hapus" onclick="return hapus(\''.$row['id_produk'].'\')"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button>';
     $sub_array['komposisi']	    = ' <a class="btn btn-warning btn-xs" href="./index.php?id='.$row['id_produk'].'&menu=detail_komposisi"  title="Komposisi"><i class="ace-icon fa fa-file-text-o bigger-120"></i> </a>
                                     <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#hapus" title="Hapus" onclick="return hapus(\''.$row['id_produk'].'\')"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button>';

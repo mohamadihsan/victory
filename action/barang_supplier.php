@@ -2,24 +2,22 @@
 session_start();
 // buka koneksi
 require_once '../config/connection.php';
-include_once 'generate_kode.php';
 
 $id_bahan_baku      = strtoupper(mysqli_escape_string($conn, trim($_POST['id_bahan_baku'])));
 $id_supplier        = mysqli_escape_string($conn, trim($_SESSION['id_supplier']));
 if(mysqli_escape_string($conn, trim($_POST['hapus']))=='0'){
-    $harga          = mysqli_escape_string($conn, trim($_POST['harga']));
-    $minimal_order  = mysqli_escape_string($conn, trim($_POST['minimal_order']));
-    $kelipatan_order  = mysqli_escape_string($conn, trim($_POST['kelipatan_order']));
+    $harga_jual          = mysqli_escape_string($conn, trim($_POST['harga_jual']));
+    $stok  = mysqli_escape_string($conn, trim($_POST['stok']));
 
     // Cek apakah sudah tercatat atau belum
-    $sql = "SELECT id_bahan_baku 
+    $sql = "SELECT id_bahan_baku
             FROM detail_supplier
             WHERE id_bahan_baku = '$id_bahan_baku' AND id_supplier = '$id_supplier'";
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) > 0) {
         // perbaharui data
-        $sql = "UPDATE detail_supplier 
-                SET harga='$harga', minimal_order='$minimal_order', kelipatan_order='$kelipatan_order'
+        $sql = "UPDATE detail_supplier
+                SET harga_jual='$harga_jual', stok='$stok'
                 WHERE id_bahan_baku='$id_bahan_baku' AND id_supplier = '$id_supplier'";
         if(mysqli_query($conn, $sql)){
             $pesan_berhasil = "Data berhasil diperbaharui";
@@ -28,14 +26,14 @@ if(mysqli_escape_string($conn, trim($_POST['hapus']))=='0'){
         }
     }else{
         // simpan data
-        $sql = "INSERT INTO detail_supplier (id_supplier, id_bahan_baku, harga, minimal_order, kelipatan_order)
-                VALUES ('$id_supplier', '$id_bahan_baku', '$harga', '$minimal_order', '$kelipatan_order')";
+        $sql = "INSERT INTO detail_supplier (id_supplier, id_bahan_baku, harga_jual, stok)
+                VALUES ('$id_supplier', '$id_bahan_baku', '$harga_jual', '$stok')";
         if(mysqli_query($conn, $sql)){
             $pesan_berhasil = "Data berhasil disimpan";
         }else{
             $pesan_gagal = "Data gagal disimpan";
         }
-    }         
+    }
 
 }else if(mysqli_escape_string($conn, trim($_POST['hapus']))=='1'){
     // hapus data

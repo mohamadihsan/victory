@@ -38,6 +38,7 @@ $result = mysqli_query($conn, $sql);
 $data = array();
 $no = 1;
 while ($row = mysqli_fetch_assoc($result)) {
+    $nomor_invoice = $row['nomor_invoice'];
     $sub_array['no']                  = $no++;
     $sub_array['nomor_invoice']       = $row['nomor_invoice'];
     $sub_array['id_konsumen']         = $row['id_konsumen'];
@@ -47,7 +48,8 @@ while ($row = mysqli_fetch_assoc($result)) {
     $sub_array['total_pembayaran']    = $row['total_pembayaran'];
     $sub_array['bukti_pembayaran']    = $row['bukti_pembayaran'];
     $sub_array['status_pembayaran']   = $row['status_pembayaran'];
-	  $sub_array['action']	            = '  <a href="./index.php?menu=pemesanan&invoice='.$row['nomor_invoice'].'" class="btn btn-warning btn-xs"><i class="ace-icon fa fa-file-text-o bigger-120"></i> Detail</a>';
+	  $sub_array['action']	            = '  <a href="./index.php?menu=pemesanan&invoice='.$row['nomor_invoice'].'" class="btn btn-warning btn-xs"><i class="ace-icon fa fa-file-text-o bigger-120"></i> Detail</a>
+                                            <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#konfirmasi" onclick="return konfirmasi(\''.$row['nomor_invoice'].'\')"><i class="ace-icon fa fa-file-text bigger-120"></i> Konfirmasi</button>';
     $sub_array['invoice']	            = ' <a href="./index.php?id='.$row['nomor_invoice'].'&menu=invoice" type="button" class="btn btn-warning btn-xs" title="Detail"><i class="ace-icon fa fa-file-text-o bigger-120"></i> </a>';
 
     // ubah tampilan data
@@ -69,9 +71,13 @@ while ($row = mysqli_fetch_assoc($result)) {
     }
 
     if ($sub_array['ketersediaan_produk'] == '0') {
-        $sub_array['ketersediaan_produk'] = '<span class="label label-info label-white middle">
+        $sub_array['ketersediaan_produk'] = '<span class="label label-danger label-white middle">
                                                 kurang/tidak tersedia
-                                            </span>';
+                                            </span>
+                                            <a href="./index.php?menu=pemesanan&invoice='.$row['nomor_invoice'].'">
+                                            <span class="label label-success label-white middle">
+                                                <i class="fa fa-refresh"></i>
+                                            </span></a>';
     }else{
         $sub_array['ketersediaan_produk'] = '<span class="label label-info label-white middle">
                                                 <i class="ace-icon fa fa-check-square bigger-120"></i>

@@ -46,7 +46,10 @@
 								<div id="login-box" class="login-box visible widget-box no-border">
 									<div class="widget-body">
 										<div class="widget-main">
-											<!-- <img src="../assets/images/logo.png" alt="logo" height="100px" class="" style="background-color:#2abe1d;margin-top:-16px;margin-left:-20px"> -->
+											<br />
+											<center>
+												<img src="../assets/images/logo.png" alt="logo" width="100%" height="100px" class="" style="background-color:#2abe1d;margin-top:-16px;margin-left:-20px">
+											</center>
 											<h1 class="header black bigger">
 												<i class="ace-icon fa fa-lock" style="color:#cd5c00"></i>
 												Login

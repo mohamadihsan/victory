@@ -97,12 +97,11 @@
                             <thead>
                                 <tr class="">
                                     <th width="7%" class="text-center">No</th>
-                                    <th width="15%" class="text-left">Kode</th>
                                     <th width="20%" class="text-left">Nama</th>
-                                    <th width="15%" class="text-left">Ukuran</th>
+                                    <th width="15%" class="text-left">Satuan</th>
                                     <th width="15%" class="text-center">Harga</th>
                                     <th width="15%" class="text-center">Stok</th>
-                                    <th width="10%" class="text-center"></th>
+                                    <th width="15%" class="text-center"></th>
                                 </tr>
                             </thead>
                         </table>
@@ -160,9 +159,8 @@
                     //"order": [[ 4, "desc" ]],
                      "aoColumns": [
                             { mData: 'no' } ,
-                            { mData: 'id_bahan_baku' } ,
                             { mData: 'nama_item' } ,
-                            { mData: 'satuan' },
+                            { mData: 'ukuran' },
                             { mData: 'harga_jual' },
                             { mData: 'stok' },
                             { mData: 'action'}

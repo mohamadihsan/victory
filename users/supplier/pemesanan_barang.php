@@ -49,7 +49,7 @@
                                 <tr class="">
                                     <th width="5%" class="text-center">No</th>
                                     <th width="15%" class="text-left">Nomor Faktur</th>
-                                    <th width="10%" class="text-left">Pemesan</th>
+                                    <th width="10%" class="text-left">Pemesan (Karyawan)</th>
                                     <th width="12%" class="text-center">Status Pemesanan</th>
                                     <th width="15%" class="text-center">Tanggal</th>
                                     <th width="5%" class="text-center"></th>
@@ -105,7 +105,7 @@
 
         $('#mytable').DataTable({
                     "bProcessing": true,
-                    "sAjaxSource": "<?php echo $base_url.'action/tampilkan_data_pemesanan_bahan_baku.php?id='.$_SESSION['id_supplier'] ?>",
+                    "sAjaxSource": "<?php echo $base_url.'action/tampilkan_data_pengadaan_bahan_baku.php?id='.$_SESSION['id_supplier'] ?>",
                     "deferRender": true,
                     "select": true,
                     //"dom": 'Bfrtip',
@@ -113,10 +113,10 @@
                     //"order": [[ 4, "desc" ]],
                      "aoColumns": [
                             { mData: 'no' } ,
-                            { mData: 'nomor_faktur' } ,
-                            { mData: 'id_pegawai' },
+                            { mData: 'id_pengadaan_bahan_baku' } ,
+                            { mData: 'nomor_induk_karyawan' },
                             { mData: 'status_pemesanan' },
-                            { mData: 'tanggal_pemesanan' },
+                            { mData: 'tanggal_pengajuan' },
                             { mData: 'action_diterima' }
                     ]
         });

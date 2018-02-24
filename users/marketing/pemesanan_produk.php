@@ -278,12 +278,12 @@
                                     <tr class="">
                                         <th width="5%" class="text-center">No</th>
                                         <th width="15%" class="text-left">Invoice</th>
-                                        <th width="15%" class="text-left">Konsumen</th>
-                                        <th width="15%" class="text-left">Tanggal Pemesanan</th>
-                                        <th width="15%" class="text-left">Status Pemesanan</th>
+                                        <th width="10%" class="text-left">Konsumen</th>
+                                        <th width="12%" class="text-left">Tgl Pemesanan</th>
+                                        <th width="10%" class="text-left">Pemesanan</th>
                                         <th width="15%" class="text-left">Status Barang</th>
-                                        <th width="15%" class="text-left">Status Pembayaran</th>
-                                        <th width="5%" class="text-left"></th>
+                                        <th width="10%" class="text-left">Pembayaran</th>
+                                        <th width="15%" class="text-left"></th>
                                     </tr>
                                 </thead>
                             </table>
@@ -315,6 +315,28 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Hapus</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="konfirmasi" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><i class="fa fa-file-text"></i> Konfirmasi</h4>
+            </div>
+            <form method="post" action="../action/pemesanan_produk.php" class="myform">
+                <div class="modal-body">
+                    <input type="hidden" name="konfirmasi" value="1" readonly>
+                    <input type="hidden" name="id_konsumen" value="" readonly>
+                    <input type="hidden" name="nomor_invoice" readonly>
+                    <p>Konfirmasi Pembayaran telah diterima?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-money"></i> Konfirmasi</button>
                 </div>
             </form>
         </div>
@@ -379,6 +401,10 @@
     });
 
     function hapus(nomor_invoice){
+        $('.modal-body input[name=nomor_invoice]').val(nomor_invoice);
+    }
+
+    function konfirmasi(nomor_invoice){
         $('.modal-body input[name=nomor_invoice]').val(nomor_invoice);
     }
 

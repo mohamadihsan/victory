@@ -45,6 +45,7 @@
                                     <th width="15%" class="text-left">Nama</th>
                                     <th width="10%" class="text-left">Deskripsi</th>
                                     <th width="10%" class="text-left">Warna</th>
+                                    <th width="10%" class="text-left">Stok</th>
                                     <th width="10%" class="text-left">Harga</th>
                                 </tr>
                             </thead>
@@ -77,6 +78,7 @@
                             { mData: 'nama_produk' } ,
                             { mData: 'deskripsi' },
                             { mData: 'warna' },
+                            { mData: 'stock' },
                             { mData: 'harga' }
                     ],
                     "aoColumnDefs": [

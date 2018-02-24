@@ -61,7 +61,15 @@
                                     </tr>
                                     <tr>
                                         <td width="15%">Harga</td>
-                                        <td><input type="number" name="harga" value="" class="form-control" placeholder=""></td>
+                                        <td><input type="number" name="harga" value="" min="0" class="form-control" placeholder=""></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="15%">Stok Gudang</td>
+                                        <td><input type="number" name="stock" value="" min="0" class="form-control" placeholder=""></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="15%">Kapasitas Produksi</td>
+                                        <td><input type="number" name="kapasitas_produksi" min="1" value="" class="form-control" placeholder=""></td>
                                     </tr>
                                     <tr>
                                         <td colspan="2">
@@ -96,10 +104,12 @@
                                     <th width="7%" class="text-center">No</th>
                                     <th width="10%" class="text-center">Gambar</th>
                                     <th width="10%" class="text-left">ID</th>
-                                    <th width="15%" class="text-left">Nama</th>
+                                    <th width="10%" class="text-left">Nama</th>
                                     <th width="10%" class="text-left">Deskripsi</th>
                                     <th width="10%" class="text-left">Warna</th>
                                     <th width="10%" class="text-left">Harga</th>
+                                    <th width="8%" class="text-left">Stok Gudang</th>
+                                    <th width="10%" class="text-left">Kapasitas Produksi</th>
                                     <th width="10%" class="text-left"></th>
                                 </tr>
                             </thead>
@@ -135,13 +145,15 @@
 </div>
 
 <script>
-    function ubah(id_produk, nama_produk, style, deskripsi, warna, harga){
+    function ubah(id_produk, nama_produk, style, deskripsi, warna, harga, stock, kapasitas_produksi){
         $('.well input[name=id_produk]').val(id_produk);
         $('.well input[name=nama_produk]').val(nama_produk);
         $('.well input[name=style]').val(style);
         $('.well input[name=deskripsi]').val(deskripsi);
         $('.well input[name=warna]').val(warna);
         $('.well input[name=harga]').val(harga);
+        $('.well input[name=stock]').val(stock);
+        $('.well input[name=kapasitas_produksi]').val(kapasitas_produksi);
     }
 
     function hapus(id_produk){
@@ -167,6 +179,8 @@
                             { mData: 'deskripsi' },
                             { mData: 'warna' },
                             { mData: 'harga' },
+                            { mData: 'stock' },
+                            { mData: 'kapasitas_produksi' },
                             { mData: 'action'}
                     ],
                     "aoColumnDefs": [

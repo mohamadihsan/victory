@@ -14,11 +14,13 @@ function Tanggal($tanggal) {
 
 $nomor_invoice = isset($_GET['nomor_invoice']) ? $_GET['nomor_invoice']: '';
 $nomor_invoice = trim($nomor_invoice);
+$ketersediaan_produk_kosong = '0';
 
 // sql statement
 $sql = "SELECT
         	a.nomor_invoice,
         	a.id_konsumen,
+            a.ketersediaan_produk,
         	status_pemesanan,
         	status_pembayaran,
         	tanggal_pemesanan,
@@ -44,12 +46,15 @@ $sql = "SELECT
 $result = mysqli_query($conn, $sql);
 $data = array();
 $no = 1;
+$jumlah_data = mysqli_num_rows($result);
+$i=0;
 while ($row = mysqli_fetch_assoc($result)) {
     $sub_array['no']                = $no++;
     $sub_array['nomor_invoice']      = $row['nomor_invoice'];
     $sub_array['id_konsumen']      = $row['id_konsumen'];
     $sub_array['status_pemesanan']  = strtoupper($row['status_pemesanan']);
     $sub_array['status_pembayaran'] = $row['status_pembayaran'];
+    $sub_array['ketersediaan_produk'] = $row['ketersediaan_produk'];
     $sub_array['tanggal_pemesanan'] = $row['tanggal_pemesanan'];
     $sub_array['jumlah_pemesanan']  = $row['quantity'];
     $sub_array['id_produk']         = $row['id_produk'];
@@ -59,6 +64,29 @@ while ($row = mysqli_fetch_assoc($result)) {
     $sub_array['alamat']            = $row['alamat'];
     $sub_array['no_telp']           = $row['no_telp'];
     $sub_array['email']             = $row['email'];
+
+    if ($row['ketersediaan_produk'] == '0') {
+        $id_produk = $row['id_produk'];
+        $sql_cek = "SELECT stock FROM produk WHERE id_produk='$id_produk'";
+        $result_cek = mysqli_query($conn, $sql_cek);
+        $row_cek = mysqli_fetch_assoc($result_cek);
+        $stock = $row_cek['stock'];
+
+        if ($stock < $row['quantity']) {
+            $ketersediaan_produk_kosong = '1';
+        }
+    }
+
+    if ($i == $jumlah_data-1) {
+        if ($ketersediaan_produk_kosong == '1') {
+            $ketersediaan_produk = '0';
+        }else{
+            $ketersediaan_produk = '1';
+        }
+
+        $sql_update = "UPDATE pemesanan_produk SET ketersediaan_produk='$ketersediaan_produk' WHERE nomor_invoice='$nomor_invoice'";
+        mysqli_query($conn, $sql_update);
+    }
 
     // ubah tampilan data
     if ($sub_array['status_pemesanan'] == 'SP') {
@@ -90,6 +118,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 
     $data[] = $sub_array;
+    $i++;
 }
 
 $results = array(

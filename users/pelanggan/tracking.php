@@ -36,6 +36,10 @@
 											</span>
 											Barang
 										</h1>
+                                        <br />
+                                        <center>
+                                            <img src="assets/images/logo.png" alt="logo" width="250px" height="80px" class="img-responsive" style="background-color:#2abe1d;margin-top:-16px;margin-left:-20px">
+                                        </center>
 
 										<hr />
 										<h3 class="lighter smaller">Cari barang yang anda pesan di PT.Indonesia Victory Garment!</h3>
